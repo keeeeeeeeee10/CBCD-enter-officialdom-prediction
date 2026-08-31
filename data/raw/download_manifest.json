@@ -1,0 +1,13 @@
+{
+  "metadata_source": "https://raw.githubusercontent.com/cbdb-project/cbdb_sqlite/master/latest.json",
+  "download_source_used": "existing verified database",
+  "generated_at_utc": "2026-08-29T19:14:29Z",
+  "sqlite_filename": "cbdb_20260829.sqlite3",
+  "sqlite_sha256": "f620ca1a4c794411b81d5039adf5756df129fb9aa0f4509b4c843bb66e0caa2a",
+  "sqlite_sha256_status": "PASS",
+  "sqlite_size_bytes": 585605120,
+  "sqlite_observed_mode": "0o777",
+  "archive_filename": "cbdb_20260829.zip",
+  "archive_sha256": "96895410ae6f52d2555a12700da6f25ab72f3bf74dfae3a065e883330e427c21",
+  "working_database": "database/cbdb_working.sqlite3"
+}

@@ -1,0 +1,62 @@
+feature,method,validation_single_feature_auc
+prefecture_id,train-category-rate to frozen validation,0.8431693733994581
+province_id,train-category-rate to frozen validation,0.8208777090186204
+addr_type_name,train-category-rate to frozen validation,0.7435729734668433
+county_id,train-category-rate to frozen validation,0.7431997370681631
+dynasty_name,train-category-rate to frozen validation,0.7407688647465874
+has_geography,raw numeric with train median to frozen validation,0.7344727379026748
+has_address,raw numeric with train median to frozen validation,0.7304821722565112
+has_kin,raw numeric with train median to frozen validation,0.6705551264353853
+family_group_size,raw numeric with train median to frozen validation,0.6177375878026181
+has_core_family,raw numeric with train median to frozen validation,0.6141606859003316
+n_known_core_kin,raw numeric with train median to frozen validation,0.5941120419810251
+gender,train-category-rate to frozen validation,0.5915345893366984
+n_known_descendants,raw numeric with train median to frozen validation,0.5829649281618399
+latitude,raw numeric with train median to frozen validation,0.5553199719758447
+safe_birth_decade,train-category-rate to frozen validation,0.546028675385256
+documentation_intensity,raw numeric with train median to frozen validation,0.5330588095582676
+older_kin_posting_ratio,raw numeric with train median to frozen validation,0.529831103927406
+mother_identified,raw numeric with train median to frozen validation,0.5290258314447274
+n_known_ancestors,raw numeric with train median to frozen validation,0.5280404827362876
+paternal_grandfather_identified,raw numeric with train median to frozen validation,0.5272067444716111
+n_known_grandparents,raw numeric with train median to frozen validation,0.5271018638497611
+distance_to_dynasty_capital_km,raw numeric with train median to frozen validation,0.5258733097405874
+has_safe_birth_year,raw numeric with train median to frozen validation,0.5135131972021564
+local_cbdb_person_count,raw numeric with train median to frozen validation,0.5127961870982096
+local_address_density,raw numeric with train median to frozen validation,0.5127961870982096
+has_status,raw numeric with train median to frozen validation,0.5125122580722212
+n_older_kin_ever_posting,raw numeric with train median to frozen validation,0.5091047429592364
+has_text,raw numeric with train median to frozen validation,0.5087093647779373
+has_assoc,raw numeric with train median to frozen validation,0.5084239440482575
+n_known_same_generation,raw numeric with train median to frozen validation,0.5080814804778369
+father_ever_posting,raw numeric with train median to frozen validation,0.5073519157926466
+father_identified,raw numeric with train median to frozen validation,0.5059130976337398
+n_older_kin_ever_entry,raw numeric with train median to frozen validation,0.505546427249911
+paternal_grandfather_ever_posting,raw numeric with train median to frozen validation,0.5054780731051397
+any_older_kin_ever_entry,raw numeric with train median to frozen validation,0.5054468054846045
+longitude,raw numeric with train median to frozen validation,0.5053915210911928
+older_kin_entry_ratio,raw numeric with train median to frozen validation,0.5051696826572235
+n_eligible_older_kin,raw numeric with train median to frozen validation,0.5048683143214343
+father_ever_entry,raw numeric with train median to frozen validation,0.5040895957672121
+n_known_parents,raw numeric with train median to frozen validation,0.5030787514042164
+mother_ever_posting,raw numeric with train median to frozen validation,0.5030232806337047
+n_known_parent_generation,raw numeric with train median to frozen validation,0.5017199957185471
+any_older_kin_posting_before_birth,raw numeric with train median to frozen validation,0.5010273975801969
+n_older_kin_posting_before_birth,raw numeric with train median to frozen validation,0.5010273465211142
+any_older_kin_ever_posting,raw numeric with train median to frozen validation,0.5010246763371623
+any_older_kin_entry_before_birth,raw numeric with train median to frozen validation,0.5009976724934712
+father_entry_before_birth,raw numeric with train median to frozen validation,0.5009599027391791
+n_older_kin_entry_before_birth,raw numeric with train median to frozen validation,0.5007558324080268
+father_posting_before_birth,raw numeric with train median to frozen validation,0.5004004110498852
+paternal_grandfather_ever_entry,raw numeric with train median to frozen validation,0.5002427030526297
+has_institution,raw numeric with train median to frozen validation,0.5001064052964288
+maternal_grandfather_ever_entry,raw numeric with train median to frozen validation,0.5001058026618752
+maternal_grandfather_identified,raw numeric with train median to frozen validation,0.5000828954509463
+paternal_grandfather_posting_before_birth,raw numeric with train median to frozen validation,0.5000755610312466
+mother_ever_entry,raw numeric with train median to frozen validation,0.5000532779775335
+maternal_grandfather_ever_posting,raw numeric with train median to frozen validation,0.5000528260016185
+paternal_grandfather_entry_before_birth,raw numeric with train median to frozen validation,0.5000453624459431
+paternal_grandmother_identified,raw numeric with train median to frozen validation,0.5000387597967726
+maternal_grandmother_identified,raw numeric with train median to frozen validation,0.5000227135069655
+maternal_grandfather_posting_before_birth,raw numeric with train median to frozen validation,0.5000000215226627
+maternal_grandfather_entry_before_birth,raw numeric with train median to frozen validation,0.5

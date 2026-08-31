@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "foundation_status": "DATA_FOUNDATION_FROZEN_FOR_PHASE2",
+  "primary_metric_rows": 120,
+  "ablation_rows": 42,
+  "robustness_metric_rows": 112,
+  "bootstrap_interval_rows": 48,
+  "figure_count": 6,
+  "errors": []
+}

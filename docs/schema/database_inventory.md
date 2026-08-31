@@ -1,0 +1,107 @@
+# CBDB database inventory
+
+Database: `database/cbdb_working.sqlite3`
+
+User tables: **79**; views: **18**. SQLite internal objects are excluded.
+
+Counts are executed with `SELECT COUNT(*)` inside SQLite; table contents are not loaded into pandas.
+
+| object | type | rows | columns | count seconds |
+| --- | --- | --- | --- | --- |
+| BIOG_SOURCE_DATA | table | 1253092 | 10 | 0.009 |
+| View_BiogSourceData | view | 1253092 | 13 | 0.373 |
+| BIOG_MAIN | table | 661124 | 55 | 0.002 |
+| View_PeopleAddrData | view | 661124 | 13 | 0.11 |
+| View_PeopleData | view | 661124 | 91 | 0.474 |
+| POSTED_TO_OFFICE_DATA | table | 590866 | 34 | 0.003 |
+| View_PostingOfficeData | view | 590866 | 56 | 0.456 |
+| POSTING_DATA | table | 590835 | 6 | 0.002 |
+| KIN_DATA | table | 561461 | 11 | 0.003 |
+| View_KinAddrData | view | 561461 | 17 | 0.308 |
+| POSTED_TO_ADDR_DATA | table | 464879 | 8 | 0.002 |
+| View_PostingAddrData | view | 464879 | 6 | 0.043 |
+| BIOG_ADDR_DATA | table | 460772 | 29 | 0.002 |
+| View_BiogAddrData | view | 460772 | 37 | 0.21 |
+| ENTRY_DATA | table | 264775 | 28 | 0.002 |
+| View_EntryData | view | 264775 | 64 | 0.412 |
+| ALTNAME_DATA | table | 208630 | 12 | 0.001 |
+| View_AltnameData | view | 208630 | 12 | 0.039 |
+| ASSOC_DATA | table | 189970 | 42 | 0.003 |
+| View_AssociationData | view | 189970 | 48 | 0.212 |
+| STATUS_DATA | table | 73250 | 19 | 0.0 |
+| View_StatusData | view | 73250 | 27 | 0.025 |
+| ADDRESSES | table | 64279 | 25 | 0.003 |
+| TEXT_CODES | table | 62362 | 24 | 0.0 |
+| BIOG_TEXT_DATA | table | 53289 | 14 | 0.0 |
+| View_BiogTextData | view | 53289 | 13 | 0.016 |
+| OFFICE_CODE_TYPE_REL | table | 43738 | 2 | 0.0 |
+| ADDR_BELONGS_DATA | table | 37118 | 11 | 0.0 |
+| OFFICE_CODES | table | 34119 | 11 | 0.0 |
+| ADDR_CODES | table | 30100 | 12 | 0.0 |
+| TEXT_INSTANCE_DATA | table | 9817 | 31 | 0.0 |
+| MERGED_PERSON_DATA | table | 5994 | 9 | 0.0 |
+| SOCIAL_INSTITUTION_CODES | table | 4012 | 19 | 0.0 |
+| SOCIAL_INSTITUTION_ADDR | table | 3859 | 11 | 0.0 |
+| OFFICE_TYPE_TREE | table | 2742 | 4 | 0.0 |
+| SOCIAL_INSTITUTION_NAME_CODES | table | 2603 | 3 | 0.0 |
+| NIAN_HAO | table | 682 | 7 | 0.0 |
+| BIOG_INST_DATA | table | 567 | 19 | 0.0 |
+| View_BiogInstAddrData | view | 567 | 39 | 0.003 |
+| View_BiogInstData | view | 567 | 35 | 0.002 |
+| ASSOC_CODES | table | 498 | 8 | 0.0 |
+| ETHNICITY_TRIBE_CODES | table | 498 | 11 | 0.0 |
+| KINSHIP_CODES | table | 488 | 13 | 0.0 |
+| ASSOC_CODE_TYPE_REL | table | 463 | 2 | 0.0 |
+| EVENTS_DATA | table | 427 | 21 | 0.0 |
+| View_EventData | view | 427 | 30 | 0.001 |
+| STATUS_CODES | table | 285 | 3 | 0.0 |
+| STATUS_CODE_TYPE_REL | table | 285 | 2 | 0.0 |
+| ENTRY_CODE_TYPE_REL | table | 284 | 2 | 0.0 |
+| ENTRY_CODES | table | 273 | 3 | 0.0 |
+| ADMIN_CAT_CODES | table | 211 | 5 | 0.0 |
+| CHORONYM_CODES | table | 173 | 3 | 0.0 |
+| KIN_MOURNING | table | 159 | 10 | 0.0 |
+| KIN_MOURNING_STEPS | table | 159 | 5 | 0.0 |
+| TEXT_BIBLCAT_CODES | table | 144 | 7 | 0.0 |
+| TEXT_BIBLCAT_CODE_TYPE_REL | table | 144 | 2 | 0.0 |
+| TEXT_TYPE | table | 126 | 6 | 0.0 |
+| EVENT_CODES | table | 117 | 20 | 0.0 |
+| APPOINTMENT_CODES | table | 116 | 6 | 0.0 |
+| APPOINTMENT_CODE_TYPE_REL | table | 109 | 2 | 0.0 |
+| DYNASTIES | table | 85 | 6 | 0.0 |
+| View_PossessionsAddrData | view | 66 | 28 | 0.001 |
+| View_PossessionsData | view | 66 | 26 | 0.001 |
+| POSSESSION_ADDR | table | 62 | 3 | 0.0 |
+| GANZHI_CODES | table | 61 | 3 | 0.0 |
+| POSSESSION_DATA | table | 60 | 20 | 0.0 |
+| TEXT_BIBLCAT_TYPES | table | 51 | 6 | 0.0 |
+| ASSOC_TYPES | table | 45 | 7 | 0.0 |
+| HOUSEHOLD_STATUS_CODES | table | 34 | 3 | 0.0 |
+| SCHOLARLYTOPIC_CODES | table | 32 | 7 | 0.0 |
+| INDEXYEAR_TYPE_CODES | table | 31 | 4 | 0.0 |
+| ENTRY_TYPES | table | 29 | 6 | 0.0 |
+| BIOG_INST_CODES | table | 26 | 4 | 0.0 |
+| BIOG_ADDR_CODES | table | 22 | 6 | 0.0 |
+| ALTNAME_CODES | table | 21 | 3 | 0.0 |
+| OFFICE_CATEGORIES | table | 15 | 4 | 0.0 |
+| STATUS_TYPES | table | 14 | 4 | 0.0 |
+| APPOINTMENT_TYPES | table | 13 | 3 | 0.0 |
+| LITERARYGENRE_CODES | table | 12 | 4 | 0.0 |
+| TEXT_ROLE_CODES | table | 12 | 3 | 0.0 |
+| COUNTRY_CODES | table | 11 | 3 | 0.0 |
+| OCCASION_CODES | table | 10 | 4 | 0.0 |
+| KINREL_REDUCTION | table | 8 | 10 | 0.0 |
+| MEASURE_CODES | table | 7 | 3 | 0.0 |
+| PARENTAL_STATUS_CODES | table | 7 | 3 | 0.0 |
+| SOCIAL_INSTITUTION_TYPES | table | 7 | 3 | 0.0 |
+| ASSUME_OFFICE_CODES | table | 6 | 3 | 0.0 |
+| YEAR_RANGE_CODES | table | 6 | 5 | 0.0 |
+| EVENTS_ADDR | table | 4 | 12 | 0.0 |
+| EXTANT_CODES | table | 4 | 3 | 0.0 |
+| POSSESSION_ACT_CODES | table | 4 | 3 | 0.0 |
+| View_EventAddrData | view | 4 | 26 | 0.0 |
+| SOCIAL_INSTITUTION_ADDR_TYPES | table | 2 | 4 | 0.0 |
+| SOCIAL_INSTITUTION_ALTNAME_CODES | table | 1 | 4 | 0.0 |
+| ADMIN_CAT_CODE_TYPE_REL | table | 0 | 2 | 0.0 |
+| ADMIN_CAT_TYPES | table | 0 | 4 | 0.0 |
+| SOCIAL_INSTITUTION_ALTNAME_DATA | table | 0 | 8 | 0.0 |

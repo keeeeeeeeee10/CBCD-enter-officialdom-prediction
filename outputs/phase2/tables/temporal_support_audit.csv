@@ -1,0 +1,5 @@
+population,safe_people,safe_positive,train_n,validation_n,test_n,supports_three_partitions
+Global,59851,24456,41937,8951,8963,True
+Song,6004,4082,6004,0,0,False
+Ming,14098,12532,14098,0,0,False
+Qing,24192,6026,9353,8947,5892,True

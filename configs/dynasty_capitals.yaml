@@ -1,0 +1,68 @@
+version: phase2_v1
+coordinate_source_note: Coordinates use the CBDB/CHGIS address gazetteer where a matching historical place is available; they are canonical-capital approximations, not person-specific travel locations.
+
+dynasties:
+  Tang:
+    canonical_capital: Changan
+    capitals:
+      - capital_name: Chang'an
+        latitude: 34.246422
+        longitude: 108.906982
+        valid_start: 618
+        valid_end: 907
+        canonical_when_year_missing: true
+        source_note: CBDB ADDR_CODES c_addr_id 400001
+  Song:
+    canonical_capital: Kaifeng
+    capitals:
+      - capital_name: Kaifeng
+        latitude: 34.785477
+        longitude: 114.343330
+        valid_start: 960
+        valid_end: 1126
+        canonical_when_year_missing: true
+        source_note: CBDB ADDR_CODES c_addr_id 100658; canonical no-year approximation
+      - capital_name: Lin'an/Hangzhou
+        latitude: 30.294125
+        longitude: 120.168625
+        valid_start: 1127
+        valid_end: 1279
+        canonical_when_year_missing: false
+        source_note: CBDB ADDR_CODES Hang Zhou c_addr_id 101088
+  Yuan:
+    canonical_capital: Dadu
+    capitals:
+      - capital_name: Dadu
+        latitude: 39.931431
+        longitude: 116.367996
+        valid_start: 1271
+        valid_end: 1368
+        canonical_when_year_missing: true
+        source_note: Approximate Beijing/Dadu location using CBDB Jingshi coordinate c_addr_id 4342
+  Ming:
+    canonical_capital: Beijing
+    capitals:
+      - capital_name: Nanjing
+        latitude: 32.052563
+        longitude: 118.768990
+        valid_start: 1368
+        valid_end: 1420
+        canonical_when_year_missing: false
+        source_note: CBDB ADDR_CODES c_addr_id 4540
+      - capital_name: Beijing/Jingshi
+        latitude: 39.931431
+        longitude: 116.367996
+        valid_start: 1421
+        valid_end: 1644
+        canonical_when_year_missing: true
+        source_note: CBDB ADDR_CODES c_addr_id 4342; canonical no-year approximation
+  Qing:
+    canonical_capital: Beijing
+    capitals:
+      - capital_name: Beijing/Jingshi
+        latitude: 39.931431
+        longitude: 116.367996
+        valid_start: 1644
+        valid_end: 1911
+        canonical_when_year_missing: true
+        source_note: CBDB historical Jingshi coordinate c_addr_id 4342 reused as canonical Beijing approximation

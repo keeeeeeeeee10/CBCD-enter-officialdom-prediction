@@ -1,0 +1,10 @@
+# SHA256 recorded before Phase 1.5 Patch & Freeze
+
+dce1531384f78cd4b0bcb3e908b7903add755609a64ae35a468c0a2441f63616  leakage_audit.md
+5ef4b5bb3b324c793c897eedd24bebeaf33a03fd7699883875399d48fc6dce94  entry_code_taxonomy.md
+01acb28da0f997801ce8a803db0054dbbee79034553593d0df2848c73a29d015  split_protocol.md
+
+# Immutable data foundations
+f620ca1a4c794411b81d5039adf5756df129fb9aa0f4509b4c843bb66e0caa2a  database/cbdb_20260829.sqlite3
+0da45a25e63c6d241f88ff69399bf12c2de83730e7adc376f3f2ca3e00357112  data/interim/person_target.parquet
+f3e5fa26c024fc46da312dd77500db8313112d7cf1841214f37ea47a6878e771  data/processed/person_base_v0.parquet

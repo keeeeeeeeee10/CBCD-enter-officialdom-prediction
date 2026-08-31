@@ -1,0 +1,64 @@
+version: phase2_v1
+local_entry_prior_alpha: 20.0
+family_ratio_alpha: 20.0
+target_encoding_oof_folds: 5
+
+populations:
+  Global: null
+  Song: Song
+  Ming: Ming
+
+feature_sets:
+  M0:
+    description: Dynasty-only historical regime baseline
+    categorical: [dynasty_name]
+    numeric: []
+  M0b:
+    description: Dynasty plus SAFE birth decade diagnostic
+    categorical: [dynasty_name, safe_birth_decade]
+    numeric: [has_safe_birth_year]
+  M1:
+    description: Personal background
+    categorical: [dynasty_name, gender, safe_birth_decade]
+    numeric: [has_safe_birth_year]
+  M2:
+    description: Personal plus historical geography
+    categorical: [dynasty_name, gender, safe_birth_decade, addr_type_name, province_id, prefecture_id, county_id]
+    numeric: [has_safe_birth_year, has_geography, latitude, longitude, distance_to_dynasty_capital_km, local_cbdb_person_count, local_address_density, local_entry_prior]
+  M3:
+    description: Geography plus family structure
+    categorical: [dynasty_name, gender, safe_birth_decade, addr_type_name, province_id, prefecture_id, county_id]
+    numeric: [has_safe_birth_year, has_geography, latitude, longitude, distance_to_dynasty_capital_km, local_cbdb_person_count, local_address_density, local_entry_prior, father_identified, mother_identified, paternal_grandfather_identified, paternal_grandmother_identified, maternal_grandfather_identified, maternal_grandmother_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_parent_generation, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size, has_core_family]
+  M4:
+    description: Family structural plus cross-sectional recorded family political capital
+    categorical: [dynasty_name, gender, safe_birth_decade, addr_type_name, province_id, prefecture_id, county_id]
+    numeric: [has_safe_birth_year, has_geography, latitude, longitude, distance_to_dynasty_capital_km, local_cbdb_person_count, local_address_density, local_entry_prior, father_identified, mother_identified, paternal_grandfather_identified, paternal_grandmother_identified, maternal_grandfather_identified, maternal_grandmother_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_parent_generation, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size, has_core_family, father_ever_entry, father_ever_posting, mother_ever_entry, mother_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_eligible_older_kin, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio, older_kin_entry_ratio_smoothed, older_kin_posting_ratio_smoothed, any_older_kin_ever_entry, any_older_kin_ever_posting]
+  M5:
+    description: Documentation-only benchmark; no dynasty
+    categorical: []
+    numeric: [has_address, has_kin, has_assoc, has_status, has_text, has_institution, documentation_intensity]
+  M6:
+    description: M4 historical features plus documentation
+    include: [M4, M5]
+  PB0:
+    description: SAFE-birth subset personal baseline
+    categorical: [dynasty_name, gender, safe_birth_decade]
+    numeric: [has_safe_birth_year]
+  PB1:
+    description: PB0 plus pre-birth lineage political capital
+    categorical: [dynasty_name, gender, safe_birth_decade]
+    numeric: [has_safe_birth_year, father_entry_before_birth, father_posting_before_birth, paternal_grandfather_entry_before_birth, paternal_grandfather_posting_before_birth, maternal_grandfather_entry_before_birth, maternal_grandfather_posting_before_birth, n_older_kin_entry_before_birth, n_older_kin_posting_before_birth, any_older_kin_entry_before_birth, any_older_kin_posting_before_birth]
+
+derived_fold_features:
+  - local_entry_prior
+  - older_kin_entry_ratio_smoothed
+  - older_kin_posting_ratio_smoothed
+
+never_predict:
+  - person_id
+  - target_entry_v1
+  - family_group_id
+  - split_primary
+  - split_random
+  - split_family
+  - split_temporal

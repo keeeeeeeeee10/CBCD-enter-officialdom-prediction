@@ -1,0 +1,64 @@
+seed: 42
+
+database:
+  latest_metadata_url: https://raw.githubusercontent.com/cbdb-project/cbdb_sqlite/master/latest.json
+  official_repo: external/cbdb_sqlite
+  raw_db: database/cbdb_latest.sqlite3
+  working_db: database/cbdb_working.sqlite3
+  working_source_marker: database/cbdb_working.source.sha256
+  busy_timeout_ms: 60000
+
+download:
+  chunk_size_bytes: 8388608
+  timeout_seconds: 60
+  retries: 3
+  huggingface_mirror_base: https://hf-mirror.com
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  schema_docs: docs/schema
+  audit_docs: docs/audit
+  figures: outputs/figures
+  tables: outputs/tables
+  logs: outputs/logs
+  models: outputs/models
+  splits: data/splits
+
+target:
+  definition: entry_data_presence_v1
+  people_table: BIOG_MAIN
+  entry_table: ENTRY_DATA
+  person_id_column: c_personid
+
+analysis:
+  exact_distinct_max_rows: 200000
+  distinct_sample_target_rows: 200000
+  parquet_chunk_rows: 100000
+  figure_dpi: 300
+
+modeling:
+  random_seed: 42
+  full_information_dataset: data/processed/person_base_v0.parquet
+  pre_entry_exclude:
+    - n_entry_records
+    - n_posting_records
+    - has_posting_record
+
+phase1_5:
+  expected_people: 661124
+  expected_v1_positive: 220627
+  historical_year_lower_bound: -1200
+  historical_year_upper_bound: 2100
+  year_sentinels: [-9999, -999, -1, 0]
+  large_dynasty_min_people: 1000
+  split_train_fraction: 0.70
+  split_validation_fraction: 0.15
+  split_test_fraction: 0.15
+
+phase1_5_patch:
+  phase1_target_sha256: 0da45a25e63c6d241f88ff69399bf12c2de83730e7adc376f3f2ca3e00357112
+  phase1_base_sha256: f3e5fa26c024fc46da312dd77500db8313112d7cf1841214f37ea47a6878e771
+  raw_database_sha256: f620ca1a4c794411b81d5039adf5756df129fb9aa0f4509b4c843bb66e0caa2a
+  giant_component_warning_fraction: 0.05

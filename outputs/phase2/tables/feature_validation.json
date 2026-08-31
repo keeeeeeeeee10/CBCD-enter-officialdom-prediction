@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "n_people": 661124,
+  "v1_positive": 220627,
+  "person_id_unique": true,
+  "registered_feature_sets": [
+    "M0",
+    "M0b",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "PB0",
+    "PB1"
+  ],
+  "fold_derived_features": [
+    "local_entry_prior",
+    "older_kin_entry_ratio_smoothed",
+    "older_kin_posting_ratio_smoothed"
+  ],
+  "forbidden_predictor_overlap": [],
+  "range_checks": {
+    "latitude": true,
+    "longitude": true,
+    "distance": true,
+    "counts_nonnegative": true,
+    "ratios_bounded": true
+  },
+  "single_feature_auc_gt_0_95_warnings": [],
+  "target_encoding_policy": "local_entry_prior is train-only/OOF and absent from the master table"
+}

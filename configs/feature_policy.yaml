@@ -1,0 +1,79 @@
+version: phase1_5_patch_v1
+
+pre_entry:
+  allow:
+    - gender
+    - gender_code
+    - birth_year
+    - valid_birth_year
+    - dynasty
+    - dynasty_code
+    - safe_index_year
+    - safe_10yr_cohort
+  conditional:
+    - conditional_index_year
+  deny:
+    - raw_index_year
+    - index_year
+    - c_index_year
+    - unsafe_index_year
+    - unknown_index_year
+    - n_entry_records
+    - entry_record_count
+    - n_posting_records
+    - posting_count
+    - has_posting_record
+    - target_posting
+
+forbidden_all_predictors:
+  - target_entry
+  - target_entry_v1
+  - target_entry_v2a
+  - target_entry_v2b
+  - target_posting
+  - n_entry_records
+  - entry_record_count
+  - entry_code
+  - c_entry_code
+  - family_group_id
+
+documentation:
+  separate_only:
+    - has_address
+    - has_kin
+    - has_kinship
+    - has_kin_record
+    - has_assoc
+    - has_association
+    - has_assoc_record
+    - has_status
+    - has_status_record
+    - has_text
+    - has_text_record
+    - has_institution
+    - has_institution_record
+    - n_known_record_domains
+    - documentation_intensity
+
+tracks:
+  pre_entry:
+    allow_conditional: false
+    allow_documentation: false
+  pre_entry_sensitivity:
+    allow_conditional: true
+    allow_documentation: false
+  historical_only:
+    allow_conditional: false
+    allow_documentation: false
+  cross_sectional_family:
+    allow_conditional: false
+    allow_documentation: false
+  pre_birth_lineage:
+    allow_conditional: false
+    allow_documentation: false
+  documentation_only:
+    allow_conditional: false
+    allow_documentation: true
+  historical_plus_documentation:
+    allow_conditional: false
+    allow_documentation: true

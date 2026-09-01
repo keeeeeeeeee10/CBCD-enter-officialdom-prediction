@@ -1,0 +1,13 @@
+version: phase2_6_publication_reporting_v1
+title_zh: "谁会留下入仕记录？基于 CBDB 的性别、地域、家族可观测性与史料记录偏差分析"
+title_en: "Who Leaves a Recorded Path into Government? Gender, Geography, Family Observability, and Documentation Bias in CBDB"
+figure_dpi: 300
+figure_formats: [png, svg]
+major_dynasties: [Tang, Song, Yuan, Ming, Qing]
+populations: [Global, Song, Ming, Qing]
+target_label: "CBDB ENTRY_DATA record presence"
+forbidden_claims:
+  - actual government-entry probability
+  - actual office holding
+  - population entry rate in historical China
+  - causal SHAP effect

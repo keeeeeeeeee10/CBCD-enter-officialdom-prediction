@@ -1,0 +1,34 @@
+{
+  "created_at_utc": "2026-08-31T19:06:54.321052+00:00",
+  "status": "SOURCE_GROUP_CONFIRMATION_NOT_FEASIBLE",
+  "grouping_protocol": "connected_components_of_explicit_primary_source_edges",
+  "eligible_people": 452035,
+  "coverage_of_feature_master": 0.6837370901676538,
+  "source_groups": 145,
+  "largest_group_people": 448632,
+  "largest_group_fraction": 0.9924718218722002,
+  "primary_source_edges": 500639,
+  "source_ids": 529,
+  "structural_checks": {
+    "eligible_people_at_least_20000": true,
+    "source_groups_at_least_30": true,
+    "largest_group_at_most_20_percent": false,
+    "group_definition_target_independent": true,
+    "split_not_performance_selected": true,
+    "one_group_per_person": true
+  },
+  "test_class_check": "NOT_RUN_STRUCTURAL_GATE_FAILED",
+  "failed_criteria": [
+    "largest_group_at_most_20_percent"
+  ],
+  "target_used_for_group_definition": false,
+  "target_used_for_split_assignment": false,
+  "model_performance_used_for_split_assignment": false,
+  "split_seed": 42,
+  "split_path": null,
+  "source_overlap_check": {
+    "status": "NOT_APPLICABLE_NOT_FEASIBLE",
+    "group_overlap_count": null,
+    "person_overlap_count": 0
+  }
+}

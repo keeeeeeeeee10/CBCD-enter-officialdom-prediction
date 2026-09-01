@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata below."
+title: "Who Leaves a Recorded Path into Government? Structure, Documentation, and Distribution Shift in CBDB"
+type: software
+authors:
+  - family-names: Lu
+    given-names: Xiaoke
+repository-code: "https://github.com/keeeeeeeeee10/CBCD-enter-officialdom-prediction"
+version: "phase3.1.1"
+date-released: 2026-09-01
+license: MIT
+abstract: >-
+  Frozen code, configuration, manuscript, lightweight aggregate evidence, and
+  release audits for predicting CBDB ENTRY_DATA record presence. The target is
+  database record presence, not latent true historical entry into government.

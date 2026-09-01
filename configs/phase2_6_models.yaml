@@ -1,0 +1,30 @@
+version: phase2_6_final_lock_v1
+canonical_seed: 42
+stability_seeds: [42, 202, 2024, 2025, 2026]
+locked_models: [H_STRUCT, D5_MAIN, D6_UPPER]
+sensitivity_models: [F2, F3, F4, D6i]
+target: target_entry_v1
+primary_split: data/splits/split_primary_dynasty_target.parquet
+bootstrap_resamples: 500
+bootstrap_confidence: 0.95
+calibration_bins: 10
+
+catboost:
+  iterations: 500
+  learning_rate: 0.05
+  depth: 7
+  loss_function: Logloss
+  eval_metric: AUC
+  l2_leaf_reg: 5
+  early_stopping_rounds: 80
+  thread_count: 8
+  verbose: false
+  class_weight_candidates: [None, Balanced]
+
+lock_policy:
+  select_best_seed: false
+  select_on_test: false
+  validation_controls_early_stopping: true
+  validation_controls_class_weight: true
+  validation_controls_threshold: true
+  canonical_seed_only: 42

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "audits": {
+    "frozen_hashes": "PASS",
+    "frozen_tables": "PASS",
+    "statistics": "PASS",
+    "data": "PASS",
+    "figures": "PASS",
+    "manuscript": "PASS",
+    "reproducibility": "PASS"
+  },
+  "blocking_issues": []
+}

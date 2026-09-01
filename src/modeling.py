@@ -97,40 +97,12 @@ def prepare_model_data(
     feature_config_path: str | Path = "configs/phase2_features.yaml",
     seed: int = 42,
 ) -> PreparedData:
-    split = pd.read_parquet(SPLIT_FILES[split_protocol])
-    return prepare_model_data_from_assignments(
-        dataset,
-        split,
-        population,
-        feature_set,
-        split_protocol=split_protocol,
-        safe_birth_subset=safe_birth_subset,
-        feature_config_path=feature_config_path,
-        seed=seed,
-    )
-
-
-def prepare_model_data_from_assignments(
-    dataset: pd.DataFrame,
-    assignments: pd.DataFrame,
-    population: str,
-    feature_set: str,
-    split_protocol: str = "custom",
-    safe_birth_subset: bool = False,
-    feature_config_path: str | Path = "configs/phase2_features.yaml",
-    seed: int = 42,
-) -> PreparedData:
-    """Prepare model data from an already-frozen person-to-split assignment."""
     registry = load_yaml(feature_config_path)
     categorical, numeric = resolve_feature_set(registry, feature_set)
     feature_names = categorical + numeric
     validate_feature_set(feature_names, model_track(feature_set))
 
-    if "person_id" not in assignments.columns or "split" not in assignments.columns:
-        raise ValueError(f"Assignments for {split_protocol} must contain person_id and split")
-    split = assignments[["person_id", "split"]].rename(columns={"split": "frozen_split"}).copy()
-    if split["person_id"].duplicated().any():
-        raise ValueError(f"Assignments for {split_protocol} contain duplicate person_id values")
+    split = pd.read_parquet(SPLIT_FILES[split_protocol]).rename(columns={"split": "frozen_split"})
     frame = dataset.merge(split, on="person_id", how="inner", validate="one_to_one")
     frame = frame.loc[population_mask(frame, population)].copy()
     if safe_birth_subset:

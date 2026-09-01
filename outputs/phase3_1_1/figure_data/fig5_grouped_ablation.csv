@@ -1,0 +1,10 @@
+population,feature_block,comparison,delta_roc_auc,delta_pr_auc,delta_log_loss,roc_ci_lower,roc_ci_upper,pr_ci_lower,pr_ci_upper,ci_status
+Global,Personal: gender,P1 - P0,0.0526088510009074,0.0579507572429536,-0.0525274647951418,,,,,paired predictions not retained for this exact contrast
+Global,Address observability,A1 - A0,0.0465102329896321,0.0938551374990638,-0.058652378505427,,,,,paired predictions not retained for this exact contrast
+Global,Administrative geography,A2 - A1,0.0188198285197108,0.0760621236785419,0.0034384470855353,,,,,paired predictions not retained for this exact contrast
+Global,Physical geography,A3 - A2,1.4251768615136662e-05,-0.000342504217187,-0.0003065793612619,,,,,EXACT_PAIRED_PREDICTIONS_NOT_RETAINED
+Global,Address-record semantics,A4 - A3,0.0089798876880112,0.0223961986997001,-0.045858298861564,,,,,paired predictions not retained for this exact contrast
+Global,Family observability,F1 - F0,0.0217281677798329,0.0354383397307325,-0.0414441537415032,,,,,paired predictions not retained for this exact contrast
+Global,Family topology,F2 - F1,0.0022510674796967,0.0023809984008524,-0.0050100046495489,0.0018849108477974,0.0026209145650746,0.0017921746285036,0.0029247358379338,500-resample stratified paired bootstrap
+Global,Family capital (full record),F3 - F2,0.0007009198308267,0.0010984840695449,-0.001379940791081,0.0004710098504185,0.0009400848947272,0.0007053883497135,0.0015384792079597,500-resample stratified paired bootstrap
+Global,Family capital (train observed),F4 - F2,0.0003110036153044,0.0005411285517097,-0.0006358670013305,0.0001145661641584,0.0005008317588862,0.0002082601136912,0.0009099457851447,500-resample stratified paired bootstrap

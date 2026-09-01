@@ -1,0 +1,14 @@
+version: phase2_6_grouped_shap_v1
+canonical_seed: 42
+target: target_entry_v1
+populations: [Global, Song, Ming]
+models: [H_STRUCT, D5_MAIN, D6_UPPER]
+max_explanation_rows_per_population: 10000
+max_raw_rows_per_model_population: 5000
+plot_rows_per_model_population: 2000
+sample_seed: 42
+additivity_check_rows: 500
+additivity_absolute_tolerance: 0.00001
+group_share_tolerance: 0.000001
+implementation: catboost_native_shap
+causal_interpretation: forbidden

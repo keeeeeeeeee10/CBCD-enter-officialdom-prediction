@@ -1,0 +1,12 @@
+population,model_id,protocol,status,reference_roc_auc,shift_roc_auc,delta_roc_auc,reference_pr_auc,shift_pr_auc,delta_pr_auc,note
+Global,D5_MAIN,Matched-support spatial,RUN,0.9197477389536568,0.8975711095659675,-0.0221766293876892,0.9149042485356076,0.879051501780591,-0.0358527467550165,Identical reliable-prefecture support; not paired because test persons differ
+Global,H_STRUCT,Matched-support spatial,RUN,0.9031527125717268,0.8724387170037653,-0.0307139955679613,0.8917178567592,0.8312907280180819,-0.0604271287411181,Identical reliable-prefecture support; not paired because test persons differ
+Ming,D5_MAIN,Matched-support spatial,RUN,0.939115401038238,0.9326919543738448,-0.0064234466643933,0.9263141356095286,0.9207400473082086,-0.00557408830132,Identical reliable-prefecture support; not paired because test persons differ
+Ming,H_STRUCT,Matched-support spatial,RUN,0.930106588971318,0.9228096237494996,-0.0072969652218184,0.9056598926248638,0.8950599889317346,-0.0105999036931292,Identical reliable-prefecture support; not paired because test persons differ
+Song,D5_MAIN,Matched-support spatial,RUN,0.9182668927526338,0.8938114774017034,-0.0244554153509304,0.9601313522154914,0.9333611952755008,-0.0267701569399907,Identical reliable-prefecture support; not paired because test persons differ
+Song,H_STRUCT,Matched-support spatial,RUN,0.8727191351840721,0.8106538053593229,-0.0620653298247492,0.9299213905783774,0.8522202136326071,-0.0777011769457702,Identical reliable-prefecture support; not paired because test persons differ
+Global,F2 structural comparator,Family-group holdout,RUN,0.9293130222767096,0.9271588723495034,-0.002154149927206195,0.8686404274663153,0.8668162654872722,-0.0018241619790431152,Whole-family groups do not cross partitions
+Ming,F2 structural comparator,Family-group holdout,RUN,0.9121637243772788,0.9089699540274512,-0.003193770349827596,0.7929618594054488,0.7892345314348916,-0.0037273279705571927,Whole-family groups do not cross partitions
+Global,Locked models,SAFE temporal,SPLIT_ONLY_NO_LOCKED_PERFORMANCE,,,,,,,Frozen whole-year split; no Phase 2.6 locked-model performance artifact exists.
+Qing,Locked models,Qing dynasty holdout,NOT_RUN_NO_FROZEN_HOLDOUT,,,,,,,Qing is descriptive; no post-hoc split was added in Phase 3.
+Global,H_STRUCT/D5_MAIN,Source group,SOURCE_GROUP_CONFIRMATION_NOT_FEASIBLE,,,,,,,Largest group=99.25%; no source model trained.

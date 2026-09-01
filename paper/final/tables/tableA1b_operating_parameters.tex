@@ -1,0 +1,27 @@
+\begingroup
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{1.55cm}>{\raggedright\arraybackslash}p{1.75cm}>{\raggedright\arraybackslash}p{3.30cm}>{\raggedright\arraybackslash}p{1.45cm}>{\raggedright\arraybackslash}p{4.00cm}>{\raggedright\arraybackslash}p{3.90cm}}
+\caption{Retained operating points for the frozen primary models. Numeric class weights were not serialized; the retained weighting scheme is reported without reconstruction. The sigmoid is $\sigma(a\,\mathrm{logit}(p)+b)$ and was fitted only on validation predictions.}\label{tab:app-operating}\\
+\toprule
+Population & Model & Selected weighting & Threshold & Objective / selection & Calibrator parameters \\
+\midrule
+\endfirsthead
+\toprule
+Population & Model & Selected weighting & Threshold & Objective / selection & Calibrator parameters \\
+\midrule
+\endhead
+Global & Logistic M6 & balanced (logistic); numeric weights NOT\_RETAINED & 0.53 & binary logistic loss; lbfgs; frozen linear baseline & NOT\_RETAINED \\
+Global & H\_STRUCT & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.47 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.014113$; $b=-0.695780$ \\
+Global & D5\_MAIN & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.53 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.023418$; $b=-0.704666$ \\
+Global & D6\_UPPER & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.49 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.022593$; $b=-0.704377$ \\
+Song & Logistic M6 & balanced (logistic); numeric weights NOT\_RETAINED & 0.53 & binary logistic loss; lbfgs; frozen linear baseline & NOT\_RETAINED \\
+Song & H\_STRUCT & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.56 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=0.996209$; $b=-0.079308$ \\
+Song & D5\_MAIN & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.52 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=0.996765$; $b=-0.103745$ \\
+Song & D6\_UPPER & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.56 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.008454$; $b=-0.099204$ \\
+Ming & Logistic M6 & balanced (logistic); numeric weights NOT\_RETAINED & 0.49 & binary logistic loss; lbfgs; frozen linear baseline & NOT\_RETAINED \\
+Ming & H\_STRUCT & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.52 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.028157$; $b=-1.377243$ \\
+Ming & D5\_MAIN & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.50 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.049390$; $b=-1.359069$ \\
+Ming & D6\_UPPER & Balanced (CatBoost); numeric weights NOT\_RETAINED & 0.47 & CatBoost Logloss; validation ROC-AUC, then lower LogLoss & $a=1.052307$; $b=-1.359874$ \\
+\bottomrule
+\end{longtable}
+\endgroup

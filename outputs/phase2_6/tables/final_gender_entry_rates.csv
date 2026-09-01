@@ -1,0 +1,13 @@
+population,gender,n_people,n_entry_positive,entry_record_presence_rate,population_share,rate_semantics
+Global,female,58054,710,0.012229992765356393,0.08781106116250506,share of CBDB-listed people with an ENTRY_DATA record
+Global,male,578833,219726,0.3796017158662343,0.8755286451558255,share of CBDB-listed people with an ENTRY_DATA record
+Global,unknown,24237,191,0.007880513264843009,0.0366602936816694,share of CBDB-listed people with an ENTRY_DATA record
+Song,female,5047,486,0.09629482861105608,0.06053518525182013,share of CBDB-listed people with an ENTRY_DATA record
+Song,male,78166,39754,0.508584294962004,0.9375457282333609,share of CBDB-listed people with an ENTRY_DATA record
+Song,unknown,160,7,0.04375,0.0019190865148189461,share of CBDB-listed people with an ENTRY_DATA record
+Ming,female,36809,21,0.0005705126463636611,0.16330306162739627,share of CBDB-listed people with an ENTRY_DATA record
+Ming,male,184402,44858,0.24326200366590384,0.818099137988403,share of CBDB-listed people with an ENTRY_DATA record
+Ming,unknown,4192,36,0.008587786259541985,0.018597800384200742,share of CBDB-listed people with an ENTRY_DATA record
+Qing,female,9272,61,0.006578947368421052,0.039052661283868875,share of CBDB-listed people with an ENTRY_DATA record
+Qing,male,213754,129374,0.6052471532696464,0.9003087316730055,share of CBDB-listed people with an ENTRY_DATA record
+Qing,unknown,14397,64,0.004445370563311801,0.06063860704312556,share of CBDB-listed people with an ENTRY_DATA record

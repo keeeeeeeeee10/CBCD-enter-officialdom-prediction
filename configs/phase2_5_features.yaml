@@ -1,0 +1,153 @@
+version: phase2_5_v1
+region_key: addr_id
+local_prior_alpha: 20.0
+local_prior_oof_folds: 5
+
+feature_sets:
+  P0:
+    description: Dynasty only
+    categorical: [dynasty_name]
+    numeric: []
+  P1:
+    description: Dynasty plus verified gender
+    include: [P0]
+    categorical: [gender]
+    numeric: []
+  P2:
+    description: P1 plus SAFE birth decade
+    include: [P1]
+    categorical: [safe_birth_decade]
+    numeric: []
+  P3:
+    description: P2 plus SAFE birth availability
+    include: [P2]
+    categorical: []
+    numeric: [has_safe_birth_year]
+
+  G0:
+    description: Personal baseline (P3)
+    include: [P3]
+  G1:
+    description: Geography observability
+    include: [G0]
+    numeric: [has_geography, has_valid_coordinates]
+  G2:
+    description: Historical administrative geography
+    include: [G1]
+    categorical: [addr_type_name, province_id, prefecture_id, county_id]
+  G3:
+    description: Continuous spatial variables
+    include: [G2]
+    numeric: [latitude, longitude, distance_to_dynasty_capital_km]
+  G4:
+    description: Train-only unsupervised regional density
+    include: [G3]
+    numeric: [train_region_person_count, train_region_log_density]
+  G5:
+    description: OOF/train-only supervised regional V1 prior
+    include: [G4]
+    numeric: [local_target_prior]
+
+  F0:
+    description: Geography baseline (G5)
+    include: [G5]
+  F1:
+    description: Family observability
+    include: [F0]
+    numeric: [has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified]
+  F2:
+    description: Family topology
+    include: [F1]
+    numeric: [n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  F3:
+    description: Full-record cross-sectional family political capital
+    include: [F2]
+    numeric: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  F4:
+    description: Train-observed inductive family political capital
+    include: [F2]
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+
+  D0:
+    description: Documentation only
+    categorical: []
+    numeric: [has_address, has_kin, has_assoc, has_status, has_text, has_institution, documentation_intensity]
+  D1:
+    description: Documentation plus personal
+    include: [D0, P3]
+  D2:
+    description: Documentation plus raw geography and train-only density
+    include: [D1]
+    categorical: [addr_type_name, province_id, prefecture_id, county_id]
+    numeric: [has_geography, has_valid_coordinates, latitude, longitude, distance_to_dynasty_capital_km, train_region_person_count, train_region_log_density]
+  D3:
+    description: D2 plus supervised local target prior
+    include: [D2]
+    numeric: [local_target_prior]
+  D4:
+    description: D3 plus family observability
+    include: [D3]
+    numeric: [has_core_family, father_identified, mother_identified, any_grandfather_identified]
+  D5:
+    description: D4 plus family topology
+    include: [D4]
+    numeric: [n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  D6:
+    description: D5 plus full-record cross-sectional family political capital
+    include: [D5]
+    numeric: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  D6i:
+    description: D5 plus train-observed inductive family political capital
+    include: [D5]
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+
+  S0:
+    description: Personal plus raw geography without supervised prior
+    include: [G4]
+  S1:
+    description: S0 plus family observability and topology
+    include: [S0]
+    numeric: [has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  S2:
+    description: S1 plus relatives' full-record ENTRY capital (posting excluded)
+    include: [S1]
+    numeric: [father_ever_entry, paternal_grandfather_ever_entry, maternal_grandfather_ever_entry, n_older_kin_ever_entry, older_kin_entry_ratio]
+  S2i:
+    description: S1 plus train-observed inductive relative outcome capital
+    include: [S1]
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+  S2p:
+    description: Posting-target-only sensitivity adding relatives' posting records to S2
+    include: [S2]
+    numeric: [father_ever_posting, paternal_grandfather_ever_posting, maternal_grandfather_ever_posting, n_older_kin_ever_posting, older_kin_posting_ratio]
+  SD:
+    description: Documentation-only sensitivity benchmark
+    include: [D0]
+
+derived_features:
+  - has_valid_coordinates
+  - any_grandfather_identified
+  - train_region_person_count
+  - train_region_log_density
+  - local_target_prior
+  - ind_father_outcome
+  - ind_paternal_grandfather_outcome
+  - ind_maternal_grandfather_outcome
+  - ind_n_observed_older_kin
+  - ind_n_positive_older_kin
+  - ind_positive_ratio
+  - ind_any_positive
+
+never_predict:
+  - person_id
+  - family_group_id
+  - target_entry_v1
+  - target_entry_v2a
+  - target_entry_v2b
+  - target_posting
+  - n_entry_records
+  - n_posting_records
+  - has_posting_record
+  - raw_index_year
+  - index_year
+  - c_index_year

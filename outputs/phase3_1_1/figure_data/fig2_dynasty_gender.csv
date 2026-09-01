@@ -1,0 +1,18 @@
+dynasty_code,dynasty,dynasty_chn,n_people,n_positive,target_rate,panel,population,gender,n_entry_positive,entry_record_presence_rate,population_share,rate_semantics
+20.0,Qing,清,237423,129499.0,0.5454357833908257,dynasty,,,,,,
+19.0,Ming,明,225403,44915.0,0.1992653159008531,dynasty,,,,,,
+15.0,Song,宋,83373,40247.0,0.4827342185119883,dynasty,,,,,,
+6.0,Tang,唐,57477,1824.0,0.0317344329035962,dynasty,,,,,,
+18.0,Yuan,元,25310,2331.0,0.0920979849861714,dynasty,,,,,,
+,,,58054,,,gender,Global,female,710.0,0.0122299927653563,0.087811061162505,share of CBDB-listed people with an ENTRY_DATA record
+,,,578833,,,gender,Global,male,219726.0,0.3796017158662343,0.8755286451558255,share of CBDB-listed people with an ENTRY_DATA record
+,,,24237,,,gender,Global,unknown,191.0,0.007880513264843,0.0366602936816694,share of CBDB-listed people with an ENTRY_DATA record
+,,,5047,,,gender,Song,female,486.0,0.096294828611056,0.0605351852518201,share of CBDB-listed people with an ENTRY_DATA record
+,,,78166,,,gender,Song,male,39754.0,0.508584294962004,0.9375457282333608,share of CBDB-listed people with an ENTRY_DATA record
+,,,160,,,gender,Song,unknown,7.0,0.04375,0.0019190865148189,share of CBDB-listed people with an ENTRY_DATA record
+,,,36809,,,gender,Ming,female,21.0,0.0005705126463636,0.1633030616273962,share of CBDB-listed people with an ENTRY_DATA record
+,,,184402,,,gender,Ming,male,44858.0,0.2432620036659038,0.818099137988403,share of CBDB-listed people with an ENTRY_DATA record
+,,,4192,,,gender,Ming,unknown,36.0,0.0085877862595419,0.0185978003842007,share of CBDB-listed people with an ENTRY_DATA record
+,,,9272,,,gender,Qing,female,61.0,0.006578947368421,0.0390526612838688,share of CBDB-listed people with an ENTRY_DATA record
+,,,213754,,,gender,Qing,male,129374.0,0.6052471532696464,0.9003087316730055,share of CBDB-listed people with an ENTRY_DATA record
+,,,14397,,,gender,Qing,unknown,64.0,0.0044453705633118,0.0606386070431255,share of CBDB-listed people with an ENTRY_DATA record

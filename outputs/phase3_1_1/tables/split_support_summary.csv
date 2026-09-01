@@ -1,0 +1,10 @@
+population,protocol,split,n_people,positive_rate,source_artifact,note
+Global,frozen_primary,train,462710,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Global,frozen_primary,validation,99107,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Global,frozen_primary,test,99307,0.3338536054860181,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN test support
+Song,frozen_primary,train,58360,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Song,frozen_primary,validation,12505,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Song,frozen_primary,test,12508,0.4827310521266389,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN test support
+Ming,frozen_primary,train,157781,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Ming,frozen_primary,validation,33810,,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN support; train/validation prevalence is not retained in this artifact
+Ming,frozen_primary,test,33812,0.1992783627114633,outputs/phase2_6/tables/final_model_metrics.csv,Population-specific D5_MAIN test support

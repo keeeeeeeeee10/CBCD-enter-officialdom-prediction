@@ -1,0 +1,23 @@
+version: phase2_5_fixed_v1
+seed: 42
+bootstrap_resamples: 500
+bootstrap_confidence: 0.95
+calibration_bins: 10
+
+logistic:
+  max_iter: 2000
+  solver: lbfgs
+  class_weight: balanced
+  onehot_min_frequency: 5
+
+catboost:
+  iterations: 500
+  learning_rate: 0.05
+  depth: 7
+  loss_function: Logloss
+  eval_metric: AUC
+  l2_leaf_reg: 5
+  early_stopping_rounds: 80
+  thread_count: 8
+  verbose: false
+  class_weight_candidates: [None, Balanced]

@@ -1,25 +1,100 @@
-.venv/
+# Raw and derived databases
+*.sqlite
+*.sqlite3
+*.db
+database/
+data/raw/
+data/interim/
+data/processed/
+data/features/
+data/modeling/
+data/splits/
+data/phase2_5/
+data/phase2_6/
+data/phase3_1/
+data/protected/
+data/reserve/
+
+# Large model and prediction artifacts
+models/
+checkpoints/
+predictions/
+outputs/**/models/
+outputs/**/predictions/
+*.cbm
+*.joblib
+*.pkl
+*.pickle
+*.model
+*.pt
+*.pth
+
+# Large arrays and columnar files
+*.npy
+*.npz
+*.parquet
+*.feather
+*.arrow
+
+# Release archives and temporary downloads
+submission/*.zip
+submission/*.zip.sha256
+exports/*.zip
+exports/*.zip.sha256
+*.tar
+*.tar.gz
+*.7z
+
+# Run logs, rendered QA caches, and generated intermediates
+outputs/**/logs/
+outputs/**/pdf_qa/
+outputs/**/figure_qa/
+tmp/
+temp/
+cache/
+
+# Python
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Jupyter
 .ipynb_checkpoints/
-external/cbdb_sqlite/
 
-# Downloaded and generated data
-data/raw/*.zip
-data/interim/*
-data/processed/*
-database/*.sqlite3
-database/*.sqlite3-*
-database/*.sha256
-outputs/figures/*
-outputs/tables/*
-outputs/logs/*
-outputs/models/*
+# LaTeX temporary files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.out
 
-# Keep empty output/data directories in Git
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-!outputs/figures/.gitkeep
-!outputs/tables/.gitkeep
-!outputs/logs/.gitkeep
-!outputs/models/.gitkeep
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

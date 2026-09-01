@@ -58,7 +58,9 @@ Use the real `KINSHIP_CODES` direction fields (`c_upstep`, `c_dwnstep`, `c_marst
 
 For pre-birth features, a relative's ENTRY/posting can contribute only if its valid event year is earlier than the focal person's `safe_birth_year`. Undated career outcomes remain missing. Children, descendants, spouses, and same-generation kin are excluded from the first pre-birth specification.
 
-Family group identifiers are constructed before family-aware split assignment. Fold-dependent target aggregates, family outcome aggregates, local target priors, encodings, and imputations must be fitted only using the corresponding training fold.
+Family group identifiers are constructed before family-aware split assignment.
+
+Fold-dependent target aggregates, local priors, encodings, imputations and inductive relative-outcome features are fitted after the split is locked, using training data only.
 
 ## Documentation-bias separation
 

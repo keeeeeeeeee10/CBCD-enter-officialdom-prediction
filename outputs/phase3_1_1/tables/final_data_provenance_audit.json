@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "conservative_snapshot_scope_present": true,
+  "database_sha256_matches_baseline": true,
+  "external_repository_or_doi_invented": false,
+  "raw_sqlite_redistributed": false
+}

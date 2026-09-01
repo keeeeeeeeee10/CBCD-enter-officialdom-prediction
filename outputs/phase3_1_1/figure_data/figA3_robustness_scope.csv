@@ -1,0 +1,6 @@
+split,n_people,positive_count,positive_prevalence,kind
+not_eligible,601273,196171.0,0.3262594528608469,temporal
+test,8963,1577.0,0.1759455539439919,temporal
+train,41937,20421.0,0.4869447027684384,temporal
+validation,8951,2458.0,0.2746061892525975,temporal
+largest source CC,448632,,,source

@@ -1,0 +1,170 @@
+version: phase2_6_feature_lock_v1
+region_key: addr_id
+local_prior_alpha: 20.0
+local_prior_oof_folds: 5
+
+blocks:
+  personal_no_birth:
+    categorical: [dynasty_name, gender]
+    numeric: []
+  personal_current:
+    categorical: [dynasty_name, gender, safe_birth_decade]
+    numeric: [has_safe_birth_year]
+  address_observability:
+    categorical: []
+    numeric: [has_geography, has_valid_coordinates]
+  administrative_geography:
+    categorical: [province_id, prefecture_id, county_id]
+    numeric: []
+  continuous_geography:
+    categorical: []
+    numeric: [latitude, longitude, distance_to_dynasty_capital_km]
+  address_record_semantics:
+    categorical: [addr_type_name]
+    numeric: []
+  regional_density:
+    categorical: []
+    numeric: [train_region_person_count, train_region_log_density]
+  supervised_local_prior:
+    categorical: []
+    numeric: [local_target_prior]
+  family_observability:
+    categorical: []
+    numeric: [has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified]
+  family_topology:
+    categorical: []
+    numeric: [n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  family_full_record_capital:
+    categorical: []
+    numeric: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  family_train_observed_capital:
+    categorical: []
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+  documentation_general:
+    categorical: []
+    numeric: [has_address, has_kin, has_assoc, has_status, has_text, has_institution, documentation_intensity]
+
+feature_sets:
+  B0:
+    description: No birth information
+    categorical: [dynasty_name, gender]
+    numeric: []
+  B1:
+    description: Birth missingness only
+    include: [B0]
+    numeric: [has_safe_birth_year]
+  B2:
+    description: Train-neutral-imputed birth values without explicit missing flag
+    include: [B0]
+    numeric: [safe_birth_year_neutral, safe_birth_decade_neutral]
+  B3:
+    description: Train-neutral-imputed birth values plus explicit missing flag
+    include: [B2]
+    numeric: [has_safe_birth_year]
+  B_OBSERVED_0:
+    description: Birth-observed personal baseline
+    include: [B0]
+  B_OBSERVED_1:
+    description: Birth-observed baseline plus cohort
+    include: [B_OBSERVED_0]
+    categorical: [safe_birth_decade]
+
+  A0:
+    description: Current personal baseline
+    categorical: [dynasty_name, gender, safe_birth_decade]
+    numeric: [has_safe_birth_year]
+  A1:
+    description: Address observability
+    include: [A0]
+    numeric: [has_geography, has_valid_coordinates]
+  A2:
+    description: Pure historical administrative geography without address type
+    include: [A1]
+    categorical: [province_id, prefecture_id, county_id]
+  A3:
+    description: Continuous physical geography
+    include: [A2]
+    numeric: [latitude, longitude, distance_to_dynasty_capital_km]
+  A4:
+    description: Documentation-linked address-record semantics
+    include: [A3]
+    categorical: [addr_type_name]
+  A5:
+    description: Full geography block plus train-only unsupervised density
+    include: [A4]
+    numeric: [train_region_person_count, train_region_log_density]
+  A6_LOCAL_PRIOR_SENSITIVITY:
+    description: Separate supervised local ENTRY-prior sensitivity
+    include: [A5]
+    numeric: [local_target_prior]
+
+  F2:
+    description: Phase 2.5 F2 frozen definition
+    include: [A5]
+    numeric: [local_target_prior, has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  F3:
+    description: Phase 2.5 full-record cross-sectional family capital
+    include: [F2]
+    numeric: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  F4:
+    description: Phase 2.5 train-observed cross-sectional family capital
+    include: [F2]
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+
+  D0:
+    description: Documentation block
+    categorical: []
+    numeric: [has_address, has_kin, has_assoc, has_status, has_text, has_institution, documentation_intensity]
+  D5_MAIN:
+    description: Frozen Phase 2.5 D5 main predictive definition
+    include: [D0, A5]
+    numeric: [local_target_prior, has_core_family, father_identified, mother_identified, any_grandfather_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  D5:
+    description: Stability-analysis alias of frozen Phase 2.5 D5
+    include: [D5_MAIN]
+  D6_UPPER:
+    description: D5 plus full-record cross-sectional family political capital
+    include: [D5_MAIN]
+    numeric: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  D6:
+    description: Stability-analysis alias of frozen Phase 2.5 D6
+    include: [D6_UPPER]
+  D6i:
+    description: D5 plus train-observed cross-sectional family capital sensitivity
+    include: [D5_MAIN]
+    numeric: [ind_father_outcome, ind_paternal_grandfather_outcome, ind_maternal_grandfather_outcome, ind_n_observed_older_kin, ind_n_positive_older_kin, ind_positive_ratio, ind_any_positive]
+
+  H_STRUCT:
+    description: Historical Structural Model without documentation-linked address type, general documentation, target prior, or relatives outcomes
+    include: [A3]
+    numeric: [train_region_person_count, train_region_log_density, has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified, n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+
+shap_feature_groups:
+  personal_gender: [gender]
+  personal_birth_cohort: [safe_birth_year, safe_birth_decade, safe_birth_year_neutral, safe_birth_decade_neutral, has_safe_birth_year]
+  address_observability: [has_geography, has_valid_coordinates]
+  address_record_semantics: [addr_type_name]
+  administrative_geography: [province_id, prefecture_id, county_id]
+  continuous_geography: [latitude, longitude, distance_to_dynasty_capital_km]
+  regional_density: [train_region_person_count, train_region_log_density]
+  supervised_local_prior: [local_target_prior]
+  family_observability: [has_kin, has_core_family, father_identified, mother_identified, any_grandfather_identified]
+  family_topology: [n_known_parents, n_known_grandparents, n_known_ancestors, n_known_same_generation, n_known_descendants, n_known_core_kin, family_group_size]
+  family_full_record_capital: [father_ever_entry, father_ever_posting, paternal_grandfather_ever_entry, paternal_grandfather_ever_posting, maternal_grandfather_ever_entry, maternal_grandfather_ever_posting, n_older_kin_ever_entry, n_older_kin_ever_posting, older_kin_entry_ratio, older_kin_posting_ratio]
+  documentation_general: [has_address, has_assoc, has_status, has_text, has_institution, documentation_intensity]
+
+never_predict:
+  - person_id
+  - family_group_id
+  - target_entry_v1
+  - target_entry_v2a
+  - target_entry_v2b
+  - target_posting
+  - n_entry_records
+  - n_posting_records
+  - has_posting_record
+  - raw_index_year
+  - index_year
+  - c_index_year
+  - unsafe_index_year
+  - unknown_index_year

@@ -21,6 +21,7 @@ personal:
 
 geography:
   status: implemented
+  note: Pure historical geography excludes addr_type_name, which is documentation-linked address-record semantics.
   features:
     - has_geography
     - addr_id
@@ -33,6 +34,11 @@ geography:
     - local_cbdb_person_count
     - local_address_density
     - local_entry_prior
+
+address_record_semantics:
+  status: separate_documentation_linked_semantics
+  features:
+    - addr_type_name
 
 family_structural:
   status: implemented

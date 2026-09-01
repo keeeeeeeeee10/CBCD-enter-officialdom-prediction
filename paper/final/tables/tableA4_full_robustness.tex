@@ -1,0 +1,26 @@
+\begingroup
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedright\arraybackslash}p{1.60cm}>{\raggedright\arraybackslash}p{2.00cm}>{\raggedright\arraybackslash}p{2.60cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\raggedright\arraybackslash}p{3.60cm}}
+\caption{Complete distribution-shift evidence. Dashes preserve experiments that were unavailable or infeasible rather than inventing estimates.}\label{tab:app-robustness}\\
+\toprule
+Population & Model & Protocol & Shift ROC & $\Delta$ROC & Shift PR & $\Delta$PR & Status \\
+\midrule
+\endfirsthead
+\toprule
+Population & Model & Protocol & Shift ROC & $\Delta$ROC & Shift PR & $\Delta$PR & Status \\
+\midrule
+\endhead
+Global & D5\_MAIN & Matched-support spatial & 0.897571 & -0.022177 & 0.879052 & -0.035853 & RUN \\
+Global & H\_STRUCT & Matched-support spatial & 0.872439 & -0.030714 & 0.831291 & -0.060427 & RUN \\
+Song & D5\_MAIN & Matched-support spatial & 0.893811 & -0.024455 & 0.933361 & -0.026770 & RUN \\
+Song & H\_STRUCT & Matched-support spatial & 0.810654 & -0.062065 & 0.852220 & -0.077701 & RUN \\
+Ming & D5\_MAIN & Matched-support spatial & 0.932692 & -0.006423 & 0.920740 & -0.005574 & RUN \\
+Ming & H\_STRUCT & Matched-support spatial & 0.922810 & -0.007297 & 0.895060 & -0.010600 & RUN \\
+Global & F2 structural comparator & Family-group holdout & 0.927159 & -0.002154 & 0.866816 & -0.001824 & RUN \\
+Ming & F2 structural comparator & Family-group holdout & 0.908970 & -0.003194 & 0.789235 & -0.003727 & RUN \\
+Global & Locked models & SAFE temporal & -- & -- & -- & -- & SPLIT\_\allowbreak ONLY\_\allowbreak NO\_\allowbreak LOCKED\_\allowbreak PERFORMANCE \\
+Qing & Locked models & Qing dynasty holdout & -- & -- & -- & -- & NOT\_\allowbreak RUN\_\allowbreak NO\_\allowbreak FROZEN\_\allowbreak HOLDOUT \\
+Global & H\_\allowbreak STRUCT/\allowbreak D5\_\allowbreak MAIN & Source group & -- & -- & -- & -- & SOURCE\_\allowbreak GROUP\_\allowbreak CONFIRMATION\_\allowbreak NOT\_\allowbreak FEASIBLE \\
+\bottomrule
+\end{longtable}
+\endgroup

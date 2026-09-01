@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\caption{Distribution-shift evidence and its availability. Whole-family rows apply only to the frozen F2 structural comparator in Global and Ming; missing performance is labeled explicitly.}
+\label{tab:robustness}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrl}
+\toprule
+Protocol & Population & Model & Shift ROC & $\Delta$ROC & Status \\
+\midrule
+Matched-support spatial & Global & D5\_MAIN & 0.8976 & -0.0222 & RUN \\
+Matched-support spatial & Global & H\_STRUCT & 0.8724 & -0.0307 & RUN \\
+Family-group holdout & Global & F2 structural comparator & 0.9272 & -0.0022 & RUN \\
+Family-group holdout & Ming & F2 structural comparator & 0.9090 & -0.0032 & RUN \\
+SAFE temporal & Global & Locked models & -- & -- & SPLIT\_ONLY\_NO\_LOCKED\_PERFORMANCE \\
+Qing dynasty holdout & Qing & Locked models & -- & -- & NOT\_RUN\_NO\_FROZEN\_HOLDOUT \\
+Source group & Global & H\_STRUCT/D5\_MAIN & -- & -- & SOURCE\_GROUP\_CONFIRMATION\_NOT\_FEASIBLE \\
+\bottomrule
+\end{tabular}}
+\end{table*}

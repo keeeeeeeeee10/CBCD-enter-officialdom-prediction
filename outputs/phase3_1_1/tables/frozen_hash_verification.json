@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "manifest": "outputs/phase3_1_1/manifests/baseline_sha256.tsv",
+  "files_checked": 97,
+  "protected_model_split_prediction_database_files": 29,
+  "changed": []
+}

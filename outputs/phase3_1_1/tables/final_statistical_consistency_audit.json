@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "checks": {
+    "family_capital_frozen_values": true,
+    "ming_roc_and_pr_intervals_include_zero": true,
+    "physical_geography_ci_unavailable": true,
+    "operating_parameters_from_retained_artifacts": true,
+    "family_holdout_f2_global_ming_only": true,
+    "source_support_counts": true,
+    "nested_ablation_scope": true
+  }
+}

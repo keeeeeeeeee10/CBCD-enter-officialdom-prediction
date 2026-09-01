@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "RECOVERED_FROM_EXECUTED_CODE_AND_FROZEN_CONFIG",
+  "feature_name": "local_target_prior",
+  "target": "target_entry_v1 (observed ENTRY_DATA record presence E)",
+  "region_key": "addr_id",
+  "grouping": {
+    "level": "exact addr_id key",
+    "hierarchical": false,
+    "minimum_group_size": null,
+    "minimum_group_size_status": "NOT_USED"
+  },
+  "smoothing": {
+    "alpha": 20.0,
+    "formula": "(s_r + alpha * mu) / (n_r + alpha)",
+    "s_r": "sum of target_entry_v1 in the fitting rows for region r",
+    "n_r": "number of fitting rows for region r",
+    "mu": "mean target_entry_v1 in the fitting rows"
+  },
+  "training_encoding": {
+    "method": "deterministic out-of-fold target encoding",
+    "folds": 5,
+    "seed": 42,
+    "fold_assignment": "int.from_bytes(SHA256(f'{seed}|{person_id}')[:8], 'little') mod n_folds",
+    "leakage_rule": "the encoded value for a training row is computed only from rows outside that row's fold",
+    "unseen_in_fold_fallback": "out-of-fold target mean mu_-f",
+    "post_oof_fit": "after OOF values are produced, the encoder is fitted on the complete training partition for forward transforms"
+  },
+  "validation_test_encoding": {
+    "labels_read": false,
+    "mapping_source": "complete training partition only",
+    "unseen_region_fallback": "complete-training target mean"
+  },
+  "missing_geography": {
+    "conversion": "missing addr_id is converted to the literal group __MISSING__",
+    "treatment": "a smoothed region group when observed in fitting rows; otherwise the relevant global fallback",
+    "separate_missing_indicator_added_by_encoder": false
+  },
+  "population_rules": {
+    "fitted_separately": [
+      "Global",
+      "Song",
+      "Ming"
+    ],
+    "order": [
+      "Global",
+      "Song",
+      "Ming"
+    ],
+    "rule": "population filtering precedes partitioning and encoder fitting"
+  },
+  "split_and_shift_rules": {
+    "primary": "fit on the population-specific frozen primary training partition; transform its validation and test partitions",
+    "matched_random": "refit from the matched-random training partition only",
+    "matched_spatial": "refit from the matched-spatial training partition only; validation/test addr_id values absent from training use the training global mean",
+    "no_cross_protocol_mapping_reuse": true
+  },
+  "not_documented_or_not_used": {
+    "hierarchical_backoff": "NOT_USED",
+    "minimum_count_pooling": "NOT_USED",
+    "coordinate_nearest_neighbor_backoff": "NOT_USED",
+    "external_geographic_prior": "NOT_USED"
+  },
+  "provenance": {
+    "implementation": "src/geography.py:FoldSafeLocalEntryEncoder",
+    "caller": "src/phase26.py:prepare_phase26_data",
+    "config": "configs/phase2_6_features.yaml",
+    "implementation_sha256": "eab02aa8359f75fb189708da560e59cebc015055f0befcb6c07448da4ff2c111",
+    "caller_sha256": "cabe9c26fa9e1dbfd3d7b440338dfd19145fde860de38a4e3886e4284506ba1e",
+    "class_source_sha256": "1c34ac8dde99682e33f8a2a74f14f975e088914a8e5133cce8fd9fbff7ebd946"
+  }
+}

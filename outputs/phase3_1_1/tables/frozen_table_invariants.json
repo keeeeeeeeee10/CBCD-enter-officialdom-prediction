@@ -1,0 +1,24 @@
+{
+  "tableA2_full_metrics.tex": {
+    "status": "PASS",
+    "rows": 12
+  },
+  "tableA3_full_ablation.tex": {
+    "status": "PASS",
+    "rows": 27
+  },
+  "tableA4_full_robustness.tex": {
+    "status": "PASS",
+    "rows": 11
+  },
+  "physical_geography_ci": {
+    "status": "PASS",
+    "rows": [
+      "Global & Physical geography & A3 - A2 & +0.000014 & -- & -0.000343 & -- \\\\",
+      "Song & Physical geography & A3 - A2 & +0.000311 & -- & +0.000883 & -- \\\\",
+      "Ming & Physical geography & A3 - A2 & +0.000152 & -- & +0.002470 & -- \\\\"
+    ],
+    "rule": "A3-A2 confidence intervals remain unavailable for Global, Song, and Ming"
+  },
+  "status": "PASS"
+}

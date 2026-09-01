@@ -1,0 +1,309 @@
+\documentclass[sigconf]{acmart}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}
+\setlength{\emergencystretch}{1.5em}
+\usepackage{float}
+% The immediately following \clearpage enforces the manuscript float boundary;
+% keep an explicit semantic marker without requiring the optional placeins package.
+\providecommand{\FloatBarrier}{}
+
+\settopmatter{printacmref=false}
+\setcopyright{none}
+\acmConference[Data Mining Course Project]{Data Mining Course Research Report}{2026}{Shanghai, China}
+\acmBooktitle{Data Mining Course Research Report}
+\acmDOI{}
+\acmISBN{}
+\input{tables/result_macros}
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.78}
+\setlength{\textfloatsep}{12pt plus 3pt minus 3pt}
+\setlength{\floatsep}{10pt plus 3pt minus 3pt}
+
+\begin{document}
+
+\title{Who Leaves a Recorded Path into Government?\\Structure, Documentation, and Distribution Shift in CBDB}
+\ifanonymous
+  \author{Anonymous Author(s)}
+  \affiliation{\institution{Anonymous Institution}\country{}}
+\else
+  \author{\PaperAuthorName}
+  \affiliation{\institution{\PaperInstitution}\city{Shanghai}\country{China}}
+\fi
+
+\begin{abstract}
+Prosopographical databases make collective historical analysis possible, but their records reflect source survival, editorial priorities, and database encoding. We predict whether each of \NPeople{} China Biographical Database (CBDB) people has an \texttt{ENTRY\_DATA} record. This operational label, $E$, differs from both posting-record presence, $P$, and the latent state of true historical entry, $T$. We therefore estimate retrospective record presence rather than historical truth. Frozen logistic and CatBoost models were evaluated through grouped ablation, paired bootstrap, five-seed stability, family and spatial shifts, validation-fitted calibration, and grouped SHAP. The designated D5\_MAIN model reached Global ROC-AUC \GlobalDfiveRoc{} and PR-AUC \GlobalDfivePr{}. Conditional evidence was strongest for gender, address observability, administrative geography, and family observability, whereas recorded family political capital added little after observability and topology. Discrimination weakened on matched-support unseen historical regions. Full-coverage source-group confirmation was infeasible under the prespecified connected-component protocol because 448,632 of 452,035 eligible people belonged to a single connected component. These results show that CBDB ENTRY-record presence is highly predictable, while also locating that performance within the database's documentation and selection processes. They do not reconstruct true historical entry or identify causal effects.
+\end{abstract}
+
+\ccsdesc[500]{Computing methodologies~Supervised learning by classification}
+\ccsdesc[300]{Applied computing~Digital libraries and archives}
+\keywords{computational history, prosopography, documentation bias, distribution shift, CBDB}
+
+\maketitle
+\ifanonymous
+  \hypersetup{pdftitle={Who Leaves a Recorded Path into Government? Structure, Documentation, and Distribution Shift in CBDB},pdfauthor={Anonymous Author(s)}}
+\else
+  \hypersetup{pdftitle={Who Leaves a Recorded Path into Government? Structure, Documentation, and Distribution Shift in CBDB},pdfauthor={\PaperAuthorName}}
+\fi
+
+\section{Introduction}
+Prosopographical databases convert dispersed biographical traces into relational data for collective, spatial, and network analysis \cite{bol2012gis,fullerwang2021networks,chenwang2022cbdb}. CBDB is a prominent example, combining structured biographies with relations, places, offices, kinship, and texts \cite{cbdb2026,fuller2024,tsui2020harvesting}. Such databases are not random censuses of past populations. Their contents depend on which people entered surviving sources, which sources were processed, and how ambiguous statements were encoded.
+
+This study combines open-ended exploratory analysis of dynastic, gender, ENTRY-pathway, geographic, and kin-observability patterns with predictive modeling of ENTRY-record presence.
+
+This selection creates a specific prediction problem. ENTRY-record presence may reflect historical structure, including period, geography, and family relations. It may also reflect the documentation process that made those attributes and the label observable. Consequently, a high area under the receiver-operating-characteristic curve (ROC-AUC) is insufficient evidence of historical recovery. The central problem is to separate predictive structure from record-generation signals and to state where that separation fails.
+
+We ask five questions. \textbf{RQ1} asks whether ENTRY-record presence can be predicted reliably on a frozen person-level test. \textbf{RQ2} asks how personal, geographic, family, and documentation blocks contribute conditionally. \textbf{RQ3} asks whether recorded family political capital adds information after observability and topology. \textbf{RQ4} asks how the frozen F2 structural comparator changes under whole-family grouping and how locked models transport to unseen historical regions. \textbf{RQ5} asks how far high performance reflects historical structure versus database recording processes.
+
+The study contributes a reproducible measurement and leakage policy, a frozen three-level model hierarchy, and an evidence-ordered interpretation. H\_STRUCT is a historical structural benchmark, although it still contains address and kin observability. D5\_MAIN is the designated predictive model without relatives' outcomes. D6\_UPPER is a database-internal record-structure upper bound. Grouped ablation and distribution shifts carry the main interpretation; SHAP is retained only as subordinate attribution evidence.
+
+\section{Related Work}
+\textbf{Computational prosopography.} CBDB supports statistical, network, spatial, kinship, and reference analysis of heterogeneous historical texts \cite{tsui2020harvesting,chenwang2022cbdb,fullerwang2021networks,bol2012gis}. Its official guide documents schema and export procedures, not complete historical coverage \cite{fuller2024}.
+
+\textbf{Prediction and generalization.} Tree ensembles are strong heterogeneous-tabular baselines, and CatBoost limits target leakage in categorical statistics \cite{grinsztajn2022tabular,prokhorenkova2018catboost}. Random holdout can be optimistic under structured dependence, while covariate shift can invalidate ordinary validation \cite{roberts2017cv,sugiyama2007covariate}. WILDS and transport research motivate explicitly bounded shift tests \cite{koh2021wilds,subbaswamy2019transport}.
+
+\textbf{Measurement, attribution, and calibration.} Administrative data inherit selection processes; operational measures need not equal latent constructs, and imperfect labels alter classification evidence \cite{hand2018administrative,jacobs2021measurement,frenay2014label}. Dataset documentation should expose these boundaries \cite{gebru2021datasheets}. SHAP is neither context-free importance nor causal evidence, and calibration requires held-out fitting data \cite{lundberg2017shap,kumar2020shap,niculescu2005probabilities,guo2017calibration}.
+
+\section{Data and Measurement Problem}
+The frozen input is official release \texttt{cbdb\_20260829.sqlite3}. The assignment brief reports approximately 515,488 people, whereas the verified release used in this study contains 661,124 \texttt{BIOG\_MAIN} person records. CBDB counts are release-specific; all results here refer only to \texttt{cbdb\_20260829.sqlite3}. CBDB is a selectively assembled historical database rather than a population register. Relation tables were aggregated by person before joining to \texttt{BIOG\_MAIN}, which prevented multi-table fan-out. The resulting analysis population contains \NPeople{} covered people and \NEntry{} positive ENTRY labels (Table~\ref{tab:dataset}).
+
+\texttt{ENTRY\_DATA} includes examination or degree records, school or student status, recommendation, hereditary or \emph{yin} privilege, military entry, purchase or donation, direct appointment, and other or ambiguous entry records. Define $E_i=1$ when person $i$ has at least one ENTRY row and $P_i=1$ when the person has at least one valid posting row. Let $T$ denote the latent true historical state of entry into government. At the construct level,
+\begin{equation}
+E \not\equiv T,\qquad P \not\equiv T,\qquad E \not\equiv P.
+\end{equation}
+E, P, and T are distinct constructs and are not semantically equivalent. Thus $E=0$ means that no ENTRY row was found, while $E=1$ does not necessarily imply actual office holding. Posting is also incomplete and cannot serve as historical ground truth. The estimand is $\Pr(E_i=1\mid X_i)$.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.94\textwidth]{figures/final_task_definition_ep_t.pdf}
+\caption{\textbf{Constructs, historical events, and recorded labels.} \textbf{a}, $T$ is latent true historical entry. Credential, education, recommendation, privilege, and other entry-related events are not $T$; posting or office-holding events are related to, but not equivalent to, $T$. Source survival, extraction, and encoding produce the observed $E$ and $P$ relations. $E$, $P$, and $T$ are distinct constructs and are not interchangeable. \textbf{b}, Frozen contingency for all \NPeople{} CBDB-covered people.}
+\Description{A process diagram separates entry, posting, and other biographical events before source selection and encoding. A two-by-two matrix gives frozen counts for observed ENTRY and posting labels.}
+\label{fig:ept}
+\end{figure*}
+\input{tables/table1_dataset}
+
+Figure~\ref{fig:ept}b makes the proxy boundary concrete. The $E=1,P=1$ quadrant records both an ENTRY and a posting trace. The $E=1,P=0$ quadrant records ENTRY without a valid posting, while $E=0,P=1$ records posting without ENTRY. The $E=0,P=0$ quadrant records neither relation. None of these quadrants identifies $T$ without additional historical evidence.
+
+\section{Task Definition and Leakage Control}
+The primary task classifies retrospective ENTRY-record presence. Direct ENTRY fields, the focal person's posting outcomes, entry or posting counts, raw index year, and person or family identifiers are forbidden predictors. Safe birth information requires audited provenance. Regional density is fitted on training people only. The local ENTRY prior groups the exact \texttt{addr\_id} key, applies five-fold deterministic out-of-fold encoding with smoothing strength 20 on training people, and transforms validation or test people from the complete-training mapping; unseen keys use the relevant training mean. Test labels select neither features nor hyperparameters, thresholds, early stopping, or calibration.
+
+The model hierarchy isolates progressively more database structure (Table~\ref{tab:features}). H\_STRUCT contains regime, gender, safe birth cohort, geography, address availability, and kin observability or topology. It is therefore not an unbiased historical model. D5\_MAIN adds documentation-linked features and a supervised local prior but excludes relatives' outcomes. D6\_UPPER adds full-record relatives' lifetime ENTRY and posting summaries. Those temporally ambiguous fields make D6\_UPPER an upper bound rather than a historical mechanism model.
+\input{tables/table2_features}
+
+\section{Exploratory Data Analysis}
+Across Tang, Song, Yuan, Ming, and Qing, CBDB coverage ranged from 25,310 to 237,423 people and $E$ prevalence from 3.17\% to 54.54\% (Figure~\ref{fig:dynasty}). Historical institutions, corpus composition, database projects, and source survival remain inseparable explanations.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig2_dynasty_gender.pdf}
+\caption{\textbf{CBDB coverage and recorded ENTRY share.} \textbf{a}, Covered people and $E$ prevalence within Tang, Song, Yuan, Ming, and Qing. \textbf{b}, $E$ prevalence within recorded gender groups for Global, Song, Ming, and Qing. Denominators are CBDB-covered people, not historical populations.}
+\Description{Bars show CBDB-covered people and recorded ENTRY shares by dynasty and gender.}
+\label{fig:dynasty}
+\end{figure*}
+
+Recorded gender is also imbalanced: 87.55\% of covered people are male, and $E$ prevalence is 37.96\% for men, 1.22\% for women, and 0.79\% for unknown gender. This predictive partition is not a historical comparison of opportunity.
+
+ENTRY pathways vary across dynasties (Figure~\ref{fig:pathways}). Examination, schooling, recommendation, privilege, military, and appointment categories are nonexclusive at person level. Their heterogeneity may reflect historical access, terminology, or source processing.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig3_entry_pathways.pdf}
+\caption{\textbf{Recorded ENTRY pathway composition.} \textbf{a}, Share of ENTRY records by semantic category and dynasty. \textbf{b}, Prevalence of each category among all CBDB-covered people in that dynasty. Person-level pathways are nonexclusive and may sum above 100\%.}
+\Description{Stacked horizontal bars compare record-level and person-level ENTRY pathway shares for five dynasties.}
+\label{fig:pathways}
+\end{figure*}
+
+Observability differs by feature: addresses cover 59.83\% of people, any kin 43.29\%, core family 33.94\%, valid coordinates 57.82\%, and safe birth years 9.05\%. Documentation intensity also varies by population, allowing models to learn record production alongside historical attributes.
+
+\section{Feature Construction}
+Features separate personal attributes; address observability, administrative and physical geography, density, semantics, and local prior; family observability, topology, and capital; and general documentation flags.
+
+Administrative identifiers mix place and normalization; address and kin flags directly measure observability; family topology is partly transductive; and relatives' outcomes are not strictly pre-entry. Grouped ablations preserve these boundaries.
+
+\section{Models and Evaluation Protocol}
+Balanced logistic regression is the frozen linear baseline. CatBoost models use seed 42, at most 500 iterations, depth 7, learning rate 0.05, $L_2$ leaf regularization 5, and validation-only early stopping. No Phase 3.1 model was trained or tuned. The primary split is a frozen, person-level, dynasty-by-$E$ stratification. Whole-family robustness keeps connected family groups disjoint. Matched-support spatial tests compare random and unseen-region tests within the same reliable-prefecture support, although their test people differ.
+
+We report ROC-AUC, precision-recall AUC (PR-AUC), balanced accuracy, F1, log loss, Brier score, and expected calibration error (ECE). PR-AUC is interpreted with test prevalence. The sigmoid calibrator was fitted on validation predictions only. Table~\ref{tab:performance} labels raw log loss and Brier score separately from validation-calibrated ECE. Paired bootstrap used 500 stratified resamples only when the exact prediction pair was retained. These intervals quantify test-sample variability, not uncertainty in label validity, source survival, or inclusion in CBDB.
+
+Five prespecified seeds assess stability for selected contrasts. The SAFE temporal split is reported as a split diagnostic because no frozen locked-model performance artifact exists. Qing is descriptive because no prespecified Qing holdout was frozen. A source-group model was conditional on a feasibility gate and was not fitted because full-coverage confirmation was infeasible under the prespecified full-coverage connected-component protocol.
+
+\section{Experimental Results}
+\subsection{Locked models establish strong within-database discrimination}
+Table~\ref{tab:performance} and Figure~\ref{fig:models} establish the frozen hierarchy. Global D5\_MAIN achieved ROC-AUC \GlobalDfiveRoc{} and PR-AUC \GlobalDfivePr{}, with raw log loss \GlobalDfiveLogLoss{} and raw Brier score \GlobalDfiveBrier{}. Its validation-calibrated ECE was \GlobalDfiveEce{}. Performance also remained high in Song and Ming, although population prevalence and PR-AUC differed.
+
+D6\_UPPER improved only marginally over D5\_MAIN. Because it includes relatives' lifetime ENTRY and posting information, the comparison bounds record-structure predictability rather than supporting a stronger historical interpretation. H\_STRUCT performed below D5\_MAIN but remained strong, showing that regime, geography, family structure, and their observability already contain substantial predictive signal.
+\input{tables/table3_performance}
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig4_locked_models.pdf}
+\caption{\textbf{Frozen primary-test discrimination.} ROC-AUC and PR-AUC compare the logistic baseline, H\_STRUCT, D5\_MAIN, and D6\_UPPER in Global, Song, and Ming. D5\_MAIN is the designated main model; D6\_UPPER is a database-internal upper bound.}
+\Description{Two point plots compare ROC-AUC and PR-AUC across populations and frozen models.}
+\label{fig:models}
+\end{figure*}
+
+\subsection{Ablation separates observability from family capital}
+Grouped ablation is the primary evidence of conditional information (Figure~\ref{fig:ablation}; Table~\ref{tab:ablation}). Global increments were largest for gender, address observability, administrative geography, and family observability. Address-record semantics added a smaller but visible increment. Physical geography changed ROC-AUC by 0.000014 and PR-AUC by $-0.000343$. Its exact A2/A3 paired predictions were not retained, so no valid confidence interval is reported. Because the grouped ablations follow a prespecified nested order, every increment is conditional on the blocks already entered. The increments are therefore order-dependent and cannot be interpreted as unique contributions or causal effects.
+
+Family observability increased Global ROC-AUC by 0.0217, while topology added 0.0023 (95\% paired bootstrap interval 0.0019 to 0.0026). Full-record family capital added 0.0007 (0.0005 to 0.0009), and train-observed capital added 0.0003 (0.0001 to 0.0005). These positive increments are stable but substantively small after observability and topology. Five-seed ranges in Appendix Figure~\ref{fig:multiseed} support the same ordering.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig5_grouped_ablation.pdf}
+\caption{\textbf{Global grouped ablations.} Bars show conditional ROC-AUC and PR-AUC changes for prespecified nested feature blocks. Negative values extend left of zero. Unsupported intervals are omitted because exact paired predictions were not retained for every contrast.}
+\Description{Horizontal paired bars show conditional metric increments for nine feature blocks.}
+\label{fig:ablation}
+\end{figure*}
+\input{tables/table4_ablation}
+
+\subsection{Family and spatial shifts bound generalization}
+Address decomposition separates a large observability increment from administrative geography, address semantics, and near-zero physical or local-prior increments (Figure~\ref{fig:spatial}a). This ordering shows conditional predictive information, not geographic causation. The matched-support test then provides a distinct boundary: unseen-region ROC-AUC decreased for H\_STRUCT and D5\_MAIN in Global, Song, and Ming (Figure~\ref{fig:spatial}b). Global decreases were 0.0307 and 0.0222, respectively.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig6_spatial_transport.pdf}
+\caption{\textbf{Address decomposition and matched-support spatial transport.} \textbf{a}, Global conditional address-block ROC-AUC increments. \textbf{b}, Unseen-region minus matched-random ROC-AUC within reliable-prefecture support. Negative values show weaker transport, not causal geographic effects.}
+\Description{Two horizontal bar plots show address-block increments and negative spatial transport deltas.}
+\label{fig:spatial}
+\end{figure*}
+
+Whole-family robustness was evaluated only for the frozen F2 structural comparator in Global and Ming. Family-group robustness of D5\_MAIN was not directly evaluated. Globally and in Song, family-capital increments were small and mostly positive. The full-record F3--F2 ROC-AUC increment was +0.000701 globally and +0.001821 in Song. In Ming, the full-record increment was -0.000319 (95\% CI [-0.0009, 0.0002]) and the train-observed F4--F2 increment was -0.000394 (95\% CI [-0.0010, 0.0002]); the corresponding Ming PR-AUC intervals also included zero. Across populations, family observability and topology contributed much more predictive information than family-capital summaries (Figure~\ref{fig:family}).
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig7_family_decomposition.pdf}
+\caption{\textbf{Family-feature decomposition.} Conditional ROC-AUC and PR-AUC increments are shown for Global, Song, and Ming. Observability and topology are separated from full-record and train-observed political-capital summaries.}
+\Description{Grouped bars compare four family feature blocks across three populations and two metrics.}
+\label{fig:family}
+\end{figure*}
+
+The source audit used marked-primary person-to-source edges without the target. The largest connected component contained \SourceLargest{} of \SourceEligible{} eligible people (\SourceLargestPct{}), exceeding the prespecified 20\% ceiling. Full-coverage source-group confirmation was infeasible under the prespecified full-coverage connected-component protocol. This protocol result does not rule out a narrower source-specific validation design. A selective single-primary-source subset could support a narrower source-holdout sensitivity, but it would not represent the full CBDB-covered population.
+\input{tables/table5_robustness}
+
+\section{Model Interpretation}
+Grouped SHAP passed additivity checks for all nine population-model pairs (Figure~\ref{fig:shap}). Attribution shifted across populations; renaming \texttt{other} to \texttt{historical\_regime} changed only the display aggregation.
+
+Song's local prior receives substantial SHAP share despite a near-zero conditional increment, and D6\_UPPER assigns \DsiFamilyShare{} of Global attribution to family capital despite its small increment. Correlated predictors can redistribute attribution, so SHAP is neither independent contribution nor causal effect \cite{lundberg2017shap,kumar2020shap}.
+
+% canonical SHAP group: historical_regime
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\textwidth]{figures/fig8_grouped_shap.pdf}
+\caption{\textbf{Grouped mean absolute SHAP shares.} Global, Song, and Ming panels compare H\_STRUCT, D5\_MAIN, and D6\_UPPER. Physical geography comprises latitude, longitude, and distance to the dynasty-specific capital. Blank cells denote groups absent from a model. Shares are fitted-model attributions, not conditional gains or causal effects.}
+\Description{Three aligned heatmaps compare grouped mean absolute SHAP shares across populations and models.}
+\label{fig:shap}
+\end{figure*}
+
+\section{Discussion}
+The results establish strong within-database prediction while exposing its documentary basis. H\_STRUCT retains observable geography and kin structure, D5\_MAIN gains from additional documentation-linked signals, and D6\_UPPER adds little discrimination from relatives' lifetime records.
+
+The contribution is an auditable separation of label semantics, structural and documentation-linked increments, family-capital increments, and shift boundaries \cite{hand2018administrative,jacobs2021measurement}. Spatial degradation limits random-holdout transport, while whole-family evidence supports only F2 in Global and Ming, not D5\_MAIN.
+
+Gender, regime, and family signals may reflect historical stratification, textual survival, editorial selection, encoding, or their combination. Source-specific or temporally anchored designs are needed to distinguish these explanations.
+
+\section{Limitations}
+\paragraph{Measurement and label validity.}
+$E$ measures heterogeneous ENTRY-record presence, not $T$; $P$ is also incomplete. Bootstrap intervals cover test-sample variation for $E$, not its definition or historical validity.
+
+\paragraph{Selection and documentation bias.}
+CBDB selection varies across period, region, gender, relations, and documentation. Because these processes affect predictors and $E$, discrimination is neither population prevalence nor historical mechanism. Source confirmation was infeasible under the prespecified full-coverage connected-component protocol.
+
+\paragraph{Temporal and transductive information.}
+D5\_MAIN is retrospective, and 9.05\% safe-birth coverage prevents broad pre-entry anchoring. Family topology is partly transductive and relatives' lifetime outcomes are temporally ambiguous, restricting D6\_UPPER and family capital to database-internal bounds.
+
+\paragraph{Generalization and adaptive test use.}
+Spatial shift weakened performance, while temporal, Qing, and source-group locked performance is unavailable. Whole-family performance applies only to F2 in Global and Ming, not D5\_MAIN. Repeated project-phase test viewing creates adaptation risk; SHAP remains non-causal.
+
+\section{Conclusion}
+CBDB ENTRY-record presence is highly predictable within the frozen database. Observability and topology dominate small, Ming-uncertain family-capital increments, and unseen-region transport is weaker. Whole-family evidence is F2-only. These results concern structured records, not true entry or causal office access.
+
+\section{Reproducibility and Availability}
+\subsection{Data Availability}
+This study reuses third-party CBDB data from the official release channel \cite{cbdb2026,fuller2024}. The brief reports about 515,488 people; the verified \texttt{cbdb\_20260829.sqlite3} release contains 661,124 \texttt{BIOG\_MAIN} records. Counts are release-specific, and all results use that release. Its SHA256 is verified. SQLite files are not redistributed; the package provides predictions, tables, figure sources, and regeneration code under CBDB access terms.
+
+\subsection{Code Availability}
+The package contains verification, preprocessing, frozen splits, features, evaluation, figures, environments, and tests. Its MIT License grants no CBDB redistribution rights, and no repository identifier is claimed.
+
+\subsection{Reproducibility Statement}
+Seed 42 and person splits are frozen; test labels selected neither hyperparameters nor calibration. Versions, parameters, hashes, and corrections are recorded. Run \texttt{bash} \path{scripts/run_phase3_1_1_final_polish.sh}.
+
+\FloatBarrier
+\clearpage
+\label{mainend}
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references_final}
+
+\clearpage
+\label{appendixstart}
+\appendix
+\onecolumn
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\section{Target Taxonomy and Feature Boundaries}
+The person-level grain begins with \texttt{BIOG\_MAIN}. ENTRY and posting relations define $E$ and $P$, while address, kin, association, status, text, institution, and source relations are aggregated separately before joining. The audited ENTRY taxonomy includes examination or degree, school or student status, recommendation, hereditary or \emph{yin} privilege, military entry, purchase or donation, direct appointment, other clear entry, failed entry, and ambiguous records. A person may occupy several categories.
+
+The global leakage policy forbids identifiers, target fields, ENTRY or posting counts, focal posting presence, raw index-year fields, and unsafe years. Regional density is training-only, and the supervised local prior is out-of-fold on training people. F3 uses full-record relatives' outcomes; F4 restricts outcomes to training-observed relatives but is not strictly pre-entry.
+
+
+\section{Exact Local Target-Prior Construction}
+For population-specific training data, let \(r_i\) be the exact \texttt{addr\_id} key for person \(i\); missing keys are mapped to the literal group \texttt{\_\_MISSING\_\_}. With smoothing strength \(\alpha=20\), regional target sum \(s_r\), regional count \(n_r\), and fitting-sample target mean \(\mu\), the encoder is
+\begin{equation}
+\widehat p_r=\frac{s_r+\alpha\mu}{n_r+\alpha}.
+\end{equation}
+Training values use five deterministic out-of-fold partitions. A person's fold is the little-endian integer represented by the first eight bytes of \(\operatorname{SHA256}(\texttt{42|person\_id})\), modulo five. For a row held out in fold \(f\), \(s_{r,-f}\), \(n_{r,-f}\), and \(\mu_{-f}\) use only other folds; a key unseen outside \(f\) receives \(\mu_{-f}\). The row's own label and all labels in its fold are therefore excluded.
+
+After producing training OOF values, the encoder is fitted on the complete training partition. Validation and test transformations read region keys but no held-out labels; unseen keys receive the complete-training mean. Encoders are fitted separately for Global, Song, and Ming and refitted within primary, matched-random, and matched-spatial protocols. There is no hierarchical geographic backoff, minimum-count pooling, coordinate-nearest fallback, or external prior. The machine-readable specification is distributed as \texttt{local\_target\_prior\_spec.json}.
+
+\section{Additional Diagnostics}
+\begin{figure}[!htbp]
+\centering\includegraphics[width=0.84\textwidth]{figures/figA1_calibration.pdf}
+\caption{\textbf{Raw and validation-calibrated ECE.} The sigmoid calibrator was fitted on validation predictions only. Lower ECE is better; the panels use different y-axis scales.}
+\Description{Two grouped bar plots compare raw and validation-calibrated expected calibration error.}
+\label{fig:calibration}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering\includegraphics[width=0.84\textwidth]{figures/figA2_multiseed.pdf}
+\caption{\textbf{Five-seed stability.} Points are mean incremental ROC-AUC values and whiskers span the observed minimum to maximum across five prespecified seeds.}
+\Description{Points and error bars show four feature-block contrasts for Global, Song, and Ming.}
+\label{fig:multiseed}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering\includegraphics[width=0.84\textwidth]{figures/figA3_robustness_scope.pdf}
+\caption{\textbf{Scope of uncompleted robustness tests.} \textbf{a}, Eligible people in the frozen SAFE temporal split, for which no locked performance artifact exists. \textbf{b}, The largest primary-source connected component compared with all eligible people.}
+\Description{Bars show temporal split sizes and dominance of the largest source connected component.}
+\label{fig:scope}
+\end{figure}
+
+\section{Complete Evaluation Notes}
+Family holdout keeps connected family groups disjoint. Matched spatial comparisons restrict random and spatial tests to identical reliable-prefecture support, although the individuals differ. The SAFE temporal split uses whole years, with training through 1729, validation through 1821, and testing thereafter; 601,273 people are ineligible. Qing results remain descriptive because no frozen Qing holdout exists.
+
+Calibration uses a validation-fitted sigmoid and ten ECE bins. Paired bootstrap intervals use 500 stratified resamples only where exact paired predictions were retained. Grouped SHAP uses 10,000-person samples for each of nine population-model combinations, and all additivity checks pass. The review bundle contains revised grouped, feature-level, and direction summaries with \texttt{historical\allowbreak\_regime} as the canonical dynasty group.
+
+\FloatBarrier
+\section{Frozen Parameters and Full Results}
+\input{tables/tableA1_model_parameters}
+\begingroup
+\renewcommand{\thetable}{A1b}
+\renewcommand{\theHtable}{A1b}
+\input{tables/tableA1b_operating_parameters}
+\endgroup
+\setcounter{table}{1}
+\input{tables/tableA2_full_metrics}
+\input{tables/tableA3_full_ablation}
+\input{tables/tableA4_full_robustness}
+
+\section{Complete Frozen Feature Registry}
+\input{tables/tableA5_feature_registry}
+
+\section{Reproduction Command}
+From the project root, run \texttt{bash scripts/run\_phase3\_1\_1\_final\_polish.sh}. The runner verifies the Phase 3.1 baseline, rebuilds only Phase 3.1.1 tables and figures, compiles both manuscripts, renders every PDF page, runs audits and tests, packages the deliverables, and validates both archives.
+\label{appendixend}
+
+\end{document}

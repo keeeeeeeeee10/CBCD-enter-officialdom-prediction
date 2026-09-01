@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\caption{Global grouped ablation evidence. Point estimates are frozen conditional increments. Intervals are 500-resample paired bootstrap intervals only where the exact paired prediction pair was retained. Dashes, including Physical Geography, mean that no valid exact-pair interval is available, not zero uncertainty.}
+\label{tab:ablation}
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Feature block & $\Delta$ROC & 95\% CI & $\Delta$PR & 95\% CI \\
+\midrule
+Personal: gender & +0.0526 & -- & +0.0580 & -- \\
+Address observability & +0.0465 & -- & +0.0939 & -- \\
+Administrative geography & +0.0188 & -- & +0.0761 & -- \\
+Physical geography & +0.0000 & -- & -0.0003 & -- \\
+Address-record semantics & +0.0090 & -- & +0.0224 & -- \\
+Family observability & +0.0217 & -- & +0.0354 & -- \\
+Family topology & +0.0023 & [0.0019, 0.0026] & +0.0024 & [0.0018, 0.0029] \\
+Family capital (full record) & +0.0007 & [0.0005, 0.0009] & +0.0011 & [0.0007, 0.0015] \\
+Family capital (train observed) & +0.0003 & [0.0001, 0.0005] & +0.0005 & [0.0002, 0.0009] \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,23 @@
+{
+  "phase": "3.1.1",
+  "status": "PASS",
+  "global_D5_MAIN": {
+    "roc_auc": 0.936955877037764,
+    "pr_auc": 0.8825352295500284,
+    "log_loss": 0.3151056907565584,
+    "brier_score": 0.0973562808138932,
+    "calibrated_ece": 0.0034382822754255
+  },
+  "scientific_scope": "Retrospective prediction of ENTRY_DATA record presence E, not latent historical entry T or causal office access.",
+  "family_holdout_scope": "F2 structural comparator only, Global and Ming; D5_MAIN not directly evaluated.",
+  "source_scope": "Full-coverage confirmation infeasible under the prespecified connected-component protocol; narrower source validation is not ruled out.",
+  "audits": {
+    "frozen_hashes": "PASS",
+    "frozen_tables": "PASS",
+    "statistics": "PASS",
+    "data": "PASS",
+    "figures": "PASS",
+    "manuscript": "PASS",
+    "reproducibility": "PASS"
+  }
+}

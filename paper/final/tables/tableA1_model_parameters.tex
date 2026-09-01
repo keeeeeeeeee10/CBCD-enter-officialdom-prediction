@@ -1,0 +1,23 @@
+\begin{longtable}{ll}
+\caption{Frozen CatBoost and evaluation parameters. Validation chooses early stopping, class weighting, and thresholds; the test does not.}\label{tab:app-parameters}\\
+\toprule
+Parameter & Frozen value \\
+\midrule
+\endfirsthead
+\toprule
+Parameter & Frozen value \\
+\midrule
+\endhead
+canonical\_seed & 42 \\
+iterations & 500 \\
+learning\_rate & 0.05 \\
+depth & 7 \\
+loss\_function & Logloss \\
+eval\_metric & AUC \\
+l2\_leaf\_reg & 5 \\
+early\_stopping\_rounds & 80 \\
+class\_weight\_candidates & ['None', 'Balanced'] \\
+bootstrap\_resamples & 500 \\
+calibration\_bins & 10 \\
+\bottomrule
+\end{longtable}

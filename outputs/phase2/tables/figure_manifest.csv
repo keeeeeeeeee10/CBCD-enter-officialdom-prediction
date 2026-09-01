@@ -1,7 +1,0 @@
-figure,path,format
-phase2_primary_auc,outputs\phase2\figures\phase2_primary_auc.png,png
-phase2_ablation_delta,outputs\phase2\figures\phase2_ablation_delta.png,png
-phase2_robustness_auc,outputs\phase2\figures\phase2_robustness_auc.png,png
-phase2_feature_importance,outputs\phase2\figures\phase2_feature_importance.png,png
-phase2_population_context,outputs\phase2\figures\phase2_population_context.png,png
-phase2_bootstrap_ci,outputs\phase2\figures\phase2_bootstrap_ci.png,png

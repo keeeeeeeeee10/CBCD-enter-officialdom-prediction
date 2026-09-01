@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "checks": {
+    "required_statements": true,
+    "banned_strings_absent": true,
+    "page_counts_equal": true,
+    "no_latex_blockers": true,
+    "author_identity_present": true,
+    "anonymous_pdf_text_clean": true,
+    "anonymous_metadata_clean": true,
+    "anonymous_source_clean": true
+  },
+  "pages": {
+    "author": 16,
+    "anonymous": 16
+  },
+  "author_sha256": "6d010ffb2592b3e3309efb69ffcb480f841c80c90e55c918b0acc03f85adcaa2",
+  "anonymous_sha256": "988b050c0045541209d2eb01ea0d28739ecdf6c56d6073faac2c02f71bd2f624"
+}

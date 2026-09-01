@@ -99,3 +99,28 @@ class FoldSafeLocalEntryEncoder:
         self.fit(region, y)
         encoded.index = regions.index
         return encoded.astype(float)
+
+
+@dataclass
+class TrainOnlyRegionalDensity:
+    """Count training people by region and map without reading held-out rows."""
+
+    def _regions(self, values: pd.Series) -> pd.Series:
+        return values.astype("string").fillna(MISSING_REGION).astype(str)
+
+    def fit(self, regions: pd.Series) -> "TrainOnlyRegionalDensity":
+        keys = self._regions(regions)
+        self.mapping_ = keys.value_counts(dropna=False).astype(float).to_dict()
+        return self
+
+    def transform(self, regions: pd.Series) -> pd.DataFrame:
+        if not hasattr(self, "mapping_"):
+            raise RuntimeError("TrainOnlyRegionalDensity must be fitted before transform")
+        count = self._regions(regions).map(self.mapping_).fillna(0.0).astype(float)
+        return pd.DataFrame(
+            {
+                "train_region_person_count": count,
+                "train_region_log_density": np.log1p(count),
+            },
+            index=regions.index,
+        )

@@ -1,0 +1,25 @@
+version: phase2_5_protocol_v1
+seed: 42
+primary_split: data/splits/split_primary_dynasty_target.parquet
+family_split: data/splits/split_family_group_robustness.parquet
+spatial_train_fraction: 0.70
+spatial_validation_fraction: 0.15
+spatial_test_fraction: 0.15
+spatial_group_definition: dynasty_code + historical prefecture_id
+spatial_missing_policy: exclude_from_primary_spatial_holdout
+inductive_family_policy: only relatives whose person_id belongs to the locked training partition; unknown is missing, never zero
+posting_target_family_policy: relatives' ENTRY capital is primary; relatives' posting capital is separate sensitivity only
+paired_bootstrap:
+  primary_unit: stratified_individual
+  family_unit: family_group_id
+  spatial_unit: spatial_group_id
+formal_shap_run: false
+
+expected_sha256:
+  database: f620ca1a4c794411b81d5039adf5756df129fb9aa0f4509b4c843bb66e0caa2a
+  target: 0da45a25e63c6d241f88ff69399bf12c2de83730e7adc376f3f2ca3e00357112
+  base: f3e5fa26c024fc46da312dd77500db8313112d7cf1841214f37ea47a6878e771
+  primary: 35eb208370aa1dc67e6b6ab66bf52543a75f4d6f4a8aa35e9db3ce70d2f5c0cd
+  random: e9abde694fd6ceabafa35e56cbd927a180e3016cacaba0c880c98deb0eb456fc
+  family: 9f6fb17147a9374ef36527173b74f7985dc12e2ec41c48702a82f6aff13d6387
+  temporal: bba7259aaaba40a5728a8d84ea5f5a4d5c633760d5869872aec845f9f7b97cbf

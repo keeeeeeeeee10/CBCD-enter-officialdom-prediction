@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "checks": {
+    "frozen_hashes": true,
+    "frozen_tables": true,
+    "local_prior_spec": true,
+    "primary_support_complete": true,
+    "shift_support_complete": true,
+    "claim_map_phase311_rows": true,
+    "no_new_experiment_actions": true
+  },
+  "prohibited_actions": {
+    "model_training": false,
+    "hyperparameter_search": false,
+    "split_selection": false,
+    "missing_ci_reconstruction": false,
+    "reserve_or_protected_data_access": false
+  }
+}
